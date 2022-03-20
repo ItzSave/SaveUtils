@@ -1,0 +1,54 @@
+#
+# SaveCoreV5
+# Developed by Save#5636
+#
+# All message support hex in the &<hex> format.
+#
+
+commands:
+  #This is the command name. This command for example is /twitter.
+  twitter:
+    #The message sent when the user runs the commands. Supports PlaceholderAPI
+    message:
+      - "&e&l[!] WEBSITE"
+      - "&6&l* &fVisit our website via &ewww.website.com %player_name%"
+
+
+#Create and edit your announcements. All announcements support PlaceholderAPI
+Announcements:
+  Discord:
+    Message:
+      - '&b&lThis is an example announcement &7(#1) %player_name%'
+  Twitter:
+    Message:
+      - '&c&lThis is an example announcement &7(#2)'
+
+join-messages:
+  rank1:
+    permission: "permission.rank1"
+    message: "&e∙&6∙ &e{PLAYER}&f has joined the server.&6∙&e∙"
+
+Settings:
+  #Disables or enables the custom commands located at the top of this file.
+  custom-commands-enabled: true
+
+  #Enables the automatic announcements.
+  enable-announcer: true
+
+  #Disables or enables the default join message.
+  join-message-enabled: false
+
+  #Disables or enables the default leave messages.
+  leave-message-enabled: false
+
+  #Replace the default join message with the one found in lang.yml
+  replace-default-join-message: false
+
+  #Replace the default leave message with the one found in lang.yml
+  replace-default-leave-message: false
+
+  #Enable custom join messages located above.
+  custom-join-messages-enabled: false
+
+  #Time between messages in seconds.
+  announcer-interval: 600

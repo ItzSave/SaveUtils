@@ -1,0 +1,11 @@
+name: SaveCoreV5
+version: '${version}'
+main: org.itzsave.SaveCore
+api-version: 1.17
+softdepend: [ PlaceholderAPI ]
+authors: [ ItzSave ]
+description: Yet another recode of SaveCore
+
+commands:
+  savecore:
+    description: Main command.

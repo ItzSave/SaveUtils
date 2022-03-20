@@ -1,0 +1,16 @@
+Messages:
+  #Message sent when a user doesn't have permission for a command.
+  no-permission: '&cYou do not have permission to use this command.'
+
+  #Message sent when the plugin has been reloaded.
+  reloaded: '&aSaveCore has been reloaded!'
+
+  #Message sent when a user runs /savecore
+  help-message:
+    - '&b&lSaveCoreV5 &7[%version%]'
+
+
+Event-Messages:
+  join-message: '&a&l+ %player%'
+  leave-message: '&c&l- %player%'
+
