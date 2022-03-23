@@ -20,8 +20,8 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        if (plugin.getConfig().getBoolean("Settings.join-message-enabled")) {
-            e.joinMessage(null);
+        if (!plugin.getConfig().getBoolean("Settings.join-message-enabled")) {
+            e.joinMessage(Component.text(""));
         }
 
         if (plugin.getConfig().getBoolean("Settings.replace-join-message")) {

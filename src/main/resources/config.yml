@@ -52,3 +52,9 @@ Settings:
 
   #Time between messages in seconds.
   announcer-interval: 600
+
+
+# DOES NOT CURRENTLY WORK
+#A list of items that can't be crafted.
+Disabled-Crafting:
+  - 'HOPPER'

@@ -7,14 +7,16 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.itzsave.commands.NightvisionCommand;
+import org.itzsave.commands.RuleCommand;
 import org.itzsave.commands.SaveCoreCommand;
+import org.itzsave.events.IllegalBookCreationEvent;
 import org.itzsave.listeners.PlayerJoinListener;
 import org.itzsave.listeners.CustomCommandListener;
 import org.itzsave.listeners.PlayerLeaveListener;
 import org.itzsave.tasks.AnnouncerTask;
 import org.itzsave.utils.ConfigManager;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,12 +41,15 @@ public final class SaveCore extends JavaPlugin implements Listener {
 
 
         this.registerCommand("savecore", new SaveCoreCommand(this));
+        this.registerCommand("rules", new RuleCommand());
+        this.registerCommand("nightvision", new NightvisionCommand());
 
         if (this.getConfig().getBoolean(("Settings.custom-commands-enabled"))) {
             this.registerEvents(new CustomCommandListener(this));
         }
         this.registerEvents(new PlayerJoinListener(this));
         this.registerEvents(new PlayerLeaveListener(this));
+        this.registerEvents(new IllegalBookCreationEvent(this));
 
     }
 

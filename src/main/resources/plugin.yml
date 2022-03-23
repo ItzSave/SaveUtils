@@ -9,3 +9,14 @@ description: Yet another recode of SaveCore
 commands:
   savecore:
     description: Main command.
+  nightvision:
+    description: Enables or disables a users nightvision effect.
+  rules:
+    description: Displays a list of rules.
+    aliases: [rule]
+
+permissions:
+  savecore.admin:
+    description: Access to all admin related commands & features.
+  savecore.nightvision:
+    description: Gives access to /nightvision.

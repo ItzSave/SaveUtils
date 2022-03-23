@@ -5,9 +5,35 @@ Messages:
   #Message sent when the plugin has been reloaded.
   reloaded: '&aSaveCore has been reloaded!'
 
+  #Message sent when a user enables their nightvision effect.
+  nightvision-enabled: '&aYou have enabled your nightvision effect.'
+
+  #Message sent when a user disables their nightvision effect.
+  nightvision-disabled: '&cYou have disabled your nightvision effect.'
+
+  #Message sent when a user tries to craft a blocked item.
+  craftdeny-message: '&cYou are not allowed to craft this item!'
+
+  #Message sent when a user tries to create an illegal book.
+  illegal-book: '&cYou are not allowed to use illegal characters in a book!'
+
   #Message sent when a user runs /savecore
   help-message:
     - '&b&lSaveCoreV5 &7[%version%]'
+
+  #Message displayed when a user runs /rules
+  rules:
+    - '&r'
+    - '&8- &fHacked Clients/Modifications are not allowed.'
+    - '&8- &fInsiding another users island is not allowed.'
+    - '&8- &fGriefing/Stealing is not allowed.'
+    - '&8- &fDisrespecting others. &7[Swearing & Insulting]'
+    - '&8- &fSpamming &7[Text & Characters]'
+    - '&8- &fSwearing, Racism & derogatory terms.'
+    - '&8- &fScamming both in-game and webstore.'
+    - '&8- &fInappropriate nicknames & skins.'
+    - '&r'
+    - '&eYou can be punished for anything listed above, be respectful.'
 
 
 Event-Messages:

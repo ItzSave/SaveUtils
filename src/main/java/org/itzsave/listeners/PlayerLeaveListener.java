@@ -9,12 +9,14 @@ public class PlayerLeaveListener implements Listener {
 
     private final SaveCore plugin;
 
-    public PlayerLeaveListener(SaveCore plugin){
+    public PlayerLeaveListener(SaveCore plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent e){
-        e.quitMessage(null);
+    public void onQuit(PlayerQuitEvent e) {
+        if (!plugin.getConfig().getBoolean("Settings.leave-message-enabled")) {
+            e.quitMessage(null);
+        }
     }
 }
