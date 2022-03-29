@@ -28,6 +28,10 @@ join-messages:
     permission: "permission.rank1"
     message: "&e∙&6∙ &e{PLAYER}&f has joined the server.&6∙&e∙"
 
+#Message sent when /donation is ran.
+Donation-Announcement:
+  - '&a%player% has donated at store.itzsave.org'
+
 Settings:
   #Disables or enables the custom commands located at the top of this file.
   custom-commands-enabled: true
@@ -35,17 +39,11 @@ Settings:
   #Enables the automatic announcements.
   enable-announcer: true
 
-  #Disables or enables the default join message.
+  #Disables or enables custom join message.
   join-message-enabled: false
 
-  #Disables or enables the default leave messages.
+  #Disables or enables custom leave messages.
   leave-message-enabled: false
-
-  #Replace the default join message with the one found in lang.yml
-  replace-default-join-message: false
-
-  #Replace the default leave message with the one found in lang.yml
-  replace-default-leave-message: false
 
   #Enable custom join messages located above.
   custom-join-messages-enabled: false

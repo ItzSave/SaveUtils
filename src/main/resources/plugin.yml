@@ -14,9 +14,18 @@ commands:
   rules:
     description: Displays a list of rules.
     aliases: [rule]
+  donation:
+    description: Used to send a configured message when a user donates.
+  autotrash:
+    aliases: [at]
+    description: Access to the auto trash system
 
 permissions:
   savecore.admin:
     description: Access to all admin related commands & features.
   savecore.nightvision:
     description: Gives access to /nightvision.
+  savecore.slient:
+    description: Allows users to join sliently.
+  autotrash.use:
+    description: Allows users to access the auto trash feature.

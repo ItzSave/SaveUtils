@@ -36,6 +36,26 @@ Messages:
     - '&eYou can be punished for anything listed above, be respectful.'
 
 
+  #Auto trash messages.
+  HELP_PAGE:
+    - "&b&lAutoTrash"
+    - "&a/%label% add <ItemName> &8- &fAdd an item to your Trash List."
+    - "&a/%label% remove <ItemName> &8- &fRemove an item from your Trash List."
+    - "&a/%label% list &8- &fOutputs your Trash List."
+    - "&a/%label% reset &8- &fReset your Trash List."
+
+  TRASH_LIST_FORMAT: "&6&l(!) &eYour trash list: &f%trashlist%"
+  TRASH_LIST_RESET: "&6&l(!) &eYour trash list has been reset."
+  TRASH_LIST_EMPTY: "&6&l(!) &eYour trash list is empty."
+  ITEM_ADD_SUCCESS: "&6&l(!) &eSuccessfully added &f%item% &eto your list."
+  ITEM_REM_SUCCESS: "&6&l(!) &eSuccessfully removed &f%item% &efrom your list."
+  NOT_ENOUGH_ARGS: "&4&l(!) &cNot enough arguments inputted."
+  NOT_VALID_ITEM: "&4&l(!) &cThe item you input was invalid. For a list of names goto \nhttp://docs.codelanx.com/Bukkit/1.8/org/bukkit/Material.html"
+  NO_PERMISSION: "&4&l(!) &cYou do not have the required permission."
+  RELOAD_MESSAGE: "&4&l(!) &cConfig file has been reloaded."
+  NOT_VALID_ARG: "&4&l(!) &cYour sub-command was not found."
+
+
 Event-Messages:
   join-message: '&a&l+ %player%'
   leave-message: '&c&l- %player%'
