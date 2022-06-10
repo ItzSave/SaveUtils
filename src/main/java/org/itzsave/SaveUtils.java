@@ -12,13 +12,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.itzsave.commands.DonationCommand;
 import org.itzsave.commands.NightvisionCommand;
 import org.itzsave.commands.RuleCommand;
-import org.itzsave.commands.SaveCoreCommand;
+import org.itzsave.commands.SaveUtilCommand;
 import org.itzsave.commands.autotrash.AutoTrash;
 import org.itzsave.events.IllegalBookCreationEvent;
 import org.itzsave.events.ItemPickupEvent;
-import org.itzsave.listeners.PlayerJoinListener;
 import org.itzsave.listeners.CustomCommandListener;
+import org.itzsave.listeners.PlayerJoinListener;
 import org.itzsave.listeners.PlayerLeaveListener;
+import org.itzsave.listeners.WitherSpawnListener;
 import org.itzsave.tasks.AnnouncerTask;
 import org.itzsave.utils.ConfigManager;
 
@@ -26,10 +27,11 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class SaveCore extends JavaPlugin implements Listener {
+public final class SaveUtils extends JavaPlugin implements Listener {
 
     private ConfigManager langfile;
     private AnnouncerTask announcements;
+    private static SaveUtils instance;
 
     private HashMap<UUID, List<Material>> playerItems;
 
@@ -49,7 +51,7 @@ public final class SaveCore extends JavaPlugin implements Listener {
         langfile.saveDefaultConfig();
 
 
-        this.registerCommand("savecore", new SaveCoreCommand(this));
+        this.registerCommand("saveutil", new SaveUtilCommand(this));
         this.registerCommand("rules", new RuleCommand());
         this.registerCommand("nightvision", new NightvisionCommand());
         this.registerCommand("donation", new DonationCommand(this));
@@ -62,6 +64,7 @@ public final class SaveCore extends JavaPlugin implements Listener {
         this.registerEvents(new PlayerLeaveListener(this));
         this.registerEvents(new IllegalBookCreationEvent(this));
         this.registerEvents(new ItemPickupEvent(this));
+        this.registerEvents(new WitherSpawnListener(this));
 
     }
 
@@ -76,6 +79,10 @@ public final class SaveCore extends JavaPlugin implements Listener {
         Objects.requireNonNull(this.getCommand(name)).setExecutor(executor);
     }
 
+    public static SaveUtils core() {
+        return instance;
+    }
+
     private void registerEvents(Listener... listeners) {
         PluginManager pm = Bukkit.getPluginManager();
         for (Listener listener : listeners) {
@@ -87,10 +94,12 @@ public final class SaveCore extends JavaPlugin implements Listener {
         return langfile.getConfig();
     }
 
+
     public final static Pattern HEX_PATTERN = Pattern.compile("#[a-fA-F0-9]{6}");
 
     @SuppressWarnings("deprecation")
     public static String color(String message) {
+
         Matcher matcher = HEX_PATTERN.matcher(message);
         StringBuilder buffer = new StringBuilder();
         while (matcher.find()) {
@@ -106,7 +115,7 @@ public final class SaveCore extends JavaPlugin implements Listener {
 
 
     //Reload handler
-    public void onReload(){
+    public void onReload() {
         reloadConfig();
         langfile.reload();
         if (this.getConfig().getBoolean("Settings.enable-announcer")) {

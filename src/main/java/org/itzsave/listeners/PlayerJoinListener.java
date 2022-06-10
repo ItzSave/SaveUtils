@@ -5,15 +5,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.itzsave.SaveCore;
+import org.itzsave.SaveUtils;
 
 import java.util.Objects;
 
 public class PlayerJoinListener implements Listener {
 
-    private final SaveCore plugin;
+    private final SaveUtils plugin;
 
-    public PlayerJoinListener(SaveCore plugin) {
+    public PlayerJoinListener(SaveUtils plugin) {
         this.plugin = plugin;
     }
 
@@ -24,7 +24,7 @@ public class PlayerJoinListener implements Listener {
             if (e.getPlayer().hasPermission("savecore.slient")) {
                 e.joinMessage(null);
             } else {
-                e.joinMessage(Component.text(Objects.requireNonNull(SaveCore.color(plugin.getLangFile().getString("Event-Messages.join-message")).replace("%player%", e.getPlayer().getName()))));
+                e.joinMessage(Component.text(Objects.requireNonNull(SaveUtils.color(plugin.getLangFile().getString("Event-Messages.join-message")).replace("%player%", e.getPlayer().getName()))));
             }
         } else {
             e.joinMessage(null);

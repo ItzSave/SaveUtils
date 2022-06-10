@@ -4,16 +4,14 @@ package org.itzsave.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.itzsave.SaveCore;
+import org.itzsave.SaveUtils;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.ObjectInputFilter;
+public class SaveUtilCommand implements CommandExecutor {
 
-public class SaveCoreCommand implements CommandExecutor {
+    private final SaveUtils plugin;
 
-    private final SaveCore plugin;
-
-    public SaveCoreCommand(SaveCore plugin) {
+    public SaveUtilCommand(SaveUtils plugin) {
         this.plugin = plugin;
     }
 
@@ -21,16 +19,17 @@ public class SaveCoreCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, Command command, @NotNull String label, String[] args) {
 
-        if (command.getName().equalsIgnoreCase("savecore")) {
+        if (command.getName().equalsIgnoreCase("saveutil")) {
             if (args.length == 0) {
                 for (String msg : plugin.getLangFile().getStringList("Messages.help-message")) {
-                    sender.sendMessage(SaveCore.color(msg).replace("%version%", plugin.getDescription().getVersion()));
+                    sender.sendMessage(SaveUtils.color(msg).replace("%version%", plugin.getDescription().getVersion()));
                 }
             } else {
                 if (args[0].equalsIgnoreCase("reload")) {
-                    if (sender.hasPermission("SaveCore.Admin")) {
-                        sender.sendMessage(SaveCore.color(plugin.getLangFile().getString("Messages.reloaded")));
+                    if (sender.hasPermission("saveutil.admin")) {
+                        sender.sendMessage(SaveUtils.color(plugin.getLangFile().getString("Messages.reloaded")));
                         plugin.onReload();
+
                     }
                 }
             }

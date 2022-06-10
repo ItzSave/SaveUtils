@@ -4,7 +4,7 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.itzsave.SaveCore;
+import org.itzsave.SaveUtils;
 
 import java.util.Objects;
 import java.util.logging.Level;
@@ -12,9 +12,9 @@ import java.util.logging.Level;
 
 public class CustomCommandListener implements Listener {
 
-    private final SaveCore plugin;
+    private final SaveUtils plugin;
 
-    public CustomCommandListener(SaveCore plugin) {
+    public CustomCommandListener(SaveUtils plugin) {
         this.plugin = plugin;
     }
 

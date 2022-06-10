@@ -2,15 +2,14 @@ package org.itzsave.tasks;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
-import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
-import org.itzsave.SaveCore;
+import org.itzsave.SaveUtils;
 
 import java.util.List;
 
 public class Announcement {
 
-    SaveCore plugin = SaveCore.getPlugin(SaveCore.class);
+    SaveUtils plugin = SaveUtils.getPlugin(SaveUtils.class);
 
     private String key;
     private List<String> msg;
@@ -25,7 +24,7 @@ public class Announcement {
 
     public void displayMessage() {
         msg.forEach(msg -> {
-            msg = SaveCore.color(msg);
+            msg = SaveUtils.color(msg);
             String finalMsg = msg;
 
             Bukkit.getOnlinePlayers().forEach(players -> players.sendMessage(PlaceholderAPI.setPlaceholders(players, finalMsg)));

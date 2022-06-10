@@ -1,31 +1,31 @@
-name: SaveCoreV5
+name: SaveUtils
 version: '${version}'
-main: org.itzsave.SaveCore
-api-version: 1.17
+main: org.itzsave.SaveUtils
+api-version: 1.18
 softdepend: [ PlaceholderAPI ]
 authors: [ ItzSave ]
-description: Yet another recode of SaveCore
+description: Simple ultily plugin to add random features/adjustments.
 
 commands:
-  savecore:
+  saveutil:
     description: Main command.
   nightvision:
     description: Enables or disables a users nightvision effect.
   rules:
     description: Displays a list of rules.
-    aliases: [rule]
+    aliases: [ rule ]
   donation:
     description: Used to send a configured message when a user donates.
   autotrash:
-    aliases: [at]
+    aliases: [ at ]
     description: Access to the auto trash system
 
 permissions:
-  savecore.admin:
+  saveutil.admin:
     description: Access to all admin related commands & features.
-  savecore.nightvision:
+  saveutil.nightvision:
     description: Gives access to /nightvision.
-  savecore.slient:
+  saveutil.slient:
     description: Allows users to join sliently.
   autotrash.use:
     description: Allows users to access the auto trash feature.

@@ -4,15 +4,15 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.itzsave.SaveCore;
+import org.itzsave.SaveUtils;
 
 import java.util.Objects;
 
 public class PlayerLeaveListener implements Listener {
 
-    private final SaveCore plugin;
+    private final SaveUtils plugin;
 
-    public PlayerLeaveListener(SaveCore plugin) {
+    public PlayerLeaveListener(SaveUtils plugin) {
         this.plugin = plugin;
     }
 
@@ -22,7 +22,7 @@ public class PlayerLeaveListener implements Listener {
             if (e.getPlayer().hasPermission("savecore.slient")) {
                 e.quitMessage(null);
             } else {
-                e.quitMessage(Component.text(Objects.requireNonNull(SaveCore.color(plugin.getLangFile().getString("Event-Messages.leave-message")).replace("%player%", e.getPlayer().getName()))));
+                e.quitMessage(Component.text(Objects.requireNonNull(SaveUtils.color(plugin.getLangFile().getString("Event-Messages.leave-message")).replace("%player%", e.getPlayer().getName()))));
             }
         } else {
             e.quitMessage(null);

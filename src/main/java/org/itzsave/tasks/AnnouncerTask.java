@@ -7,14 +7,14 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-import org.itzsave.SaveCore;
+import org.itzsave.SaveUtils;
 
 import java.util.List;
 import java.util.Map;
 
 public class AnnouncerTask implements Listener {
 
-    SaveCore plugin = SaveCore.getPlugin(SaveCore.class);
+    SaveUtils plugin = SaveUtils.getPlugin(SaveUtils.class);
 
     private final Map<Integer, Announcement> announcementIntegerMap;
     private int announcement = 0;
@@ -72,7 +72,7 @@ public class AnnouncerTask implements Listener {
 
     public void displayMessage() {
         msg.forEach(msg -> {
-            msg = SaveCore.color(msg);
+            msg = SaveUtils.color(msg);
             String finalMsg = msg;
 
             Bukkit.getOnlinePlayers().forEach(players -> players.sendMessage(finalMsg));

@@ -3,25 +3,21 @@ package org.itzsave.events;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryPickupItemEvent;
-import org.bukkit.inventory.ItemStack;
-import org.itzsave.SaveCore;
-import org.jetbrains.annotations.NotNull;
+import org.itzsave.SaveUtils;
 
 import java.util.Objects;
-import java.util.logging.Level;
 
 
 public class ItemPickupEvent implements Listener {
 
-    private final SaveCore plugin;
+    private final SaveUtils plugin;
 
-    public ItemPickupEvent(SaveCore plugin) {
+    public ItemPickupEvent(SaveUtils plugin) {
         this.plugin = plugin;
     }
 
