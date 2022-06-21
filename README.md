@@ -1,2 +1,2 @@
 # SaveUtils
-Recode of SaveCoreV4 and converted into gradle from maven.
+A remake of the "SaveCore" series designed to be a utility plugin that has various features.
