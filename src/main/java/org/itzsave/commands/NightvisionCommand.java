@@ -9,6 +9,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.itzsave.SaveUtils;
 import org.jetbrains.annotations.NotNull;
 
+
 public class NightvisionCommand implements CommandExecutor {
 
 
@@ -24,6 +25,7 @@ public class NightvisionCommand implements CommandExecutor {
                     if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
                         player.sendMessage(SaveUtils.color(plugin.getLangFile().getString("Messages.nightvision-disabled")));
                         player.removePotionEffect(PotionEffectType.NIGHT_VISION);
+                        //player.sendMessage(MiniMessage.miniMessage().deserialize(Objects.requireNonNull(plugin.getLangFile().getString("Messages.nightvision-disabled"))));
                         return false;
                     }
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 1, true, false));

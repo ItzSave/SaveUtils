@@ -34,7 +34,7 @@ public class ItemPickupEvent implements Listener {
                 //this.plugin.getServer().getLogger().log(Level.SEVERE, "Trash Items ret null.");
                 return;
             }
-            if (this.plugin.getTrashItemsMat(p).contains(item)) {
+            if (Objects.requireNonNull(this.plugin.getTrashItemsMat(p)).contains(item)) {
                 e.getItem().remove();
                 e.setCancelled(true);
             }

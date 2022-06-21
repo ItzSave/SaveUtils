@@ -22,7 +22,7 @@ public class IllegalBookCreationEvent implements Listener {
     public void onBookEdit(PlayerEditBookEvent e) {
         for (String bookPage : e.getNewBookMeta().getPages()) {
             if (!StandardCharsets.US_ASCII.newEncoder().canEncode(bookPage)) {
-                e.getPlayer().sendMessage(Component.text(Objects.requireNonNull(SaveUtils.color(plugin.getLangFile().getString("Messages.illegal-book")))));
+                e.getPlayer().sendMessage(SaveUtils.color(Objects.requireNonNull(plugin.getLangFile().getString("Messages.illegal-book"))));
                 e.setCancelled(true);
             }
         }

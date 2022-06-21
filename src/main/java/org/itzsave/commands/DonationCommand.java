@@ -8,6 +8,8 @@ import org.bukkit.entity.Player;
 import org.itzsave.SaveUtils;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class DonationCommand implements CommandExecutor {
 
     private final SaveUtils plugin;
@@ -31,8 +33,7 @@ public class DonationCommand implements CommandExecutor {
                     } else {
                         Bukkit.getOnlinePlayers().forEach(p -> {
                             for (String msg : plugin.getConfig().getStringList("Donation-Announcement")) {
-                                p.sendMessage(SaveUtils.color(msg.replace("%player%", target.getPlayer().getName())));
-                                //break;
+                                p.sendMessage(SaveUtils.color(msg.replace("%player%", Objects.requireNonNull(target.getPlayer()).getName())));
                             }
                         });
 
@@ -40,7 +41,7 @@ public class DonationCommand implements CommandExecutor {
                 }
 
             } else {
-                sender.sendMessage(plugin.getLangFile().getString(SaveUtils.color("messages.no-permission")));
+                sender.sendMessage(SaveUtils.color(plugin.getLangFile().getString(("messages.no-permission"))));
             }
         }
         return false;

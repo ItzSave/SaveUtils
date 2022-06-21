@@ -22,7 +22,7 @@ public class PlayerLeaveListener implements Listener {
             if (e.getPlayer().hasPermission("savecore.slient")) {
                 e.quitMessage(null);
             } else {
-                e.quitMessage(Component.text(Objects.requireNonNull(SaveUtils.color(plugin.getLangFile().getString("Event-Messages.leave-message")).replace("%player%", e.getPlayer().getName()))));
+                e.quitMessage(Objects.requireNonNull(SaveUtils.color(Objects.requireNonNull(plugin.getLangFile().getString("Event-Messages.leave-message")).replace("%player%", e.getPlayer().getName()))));
             }
         } else {
             e.quitMessage(null);

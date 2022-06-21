@@ -2,7 +2,7 @@
 # SaveCoreV5
 # Developed by Save#5636
 #
-# All message support hex in the &<hex> format.
+# All message support hex in the &<hex> format. Adventure is a WIP
 #
 
 commands:
@@ -10,27 +10,22 @@ commands:
   twitter:
     #The message sent when the user runs the commands. Supports PlaceholderAPI
     message:
-      - "&e&l[!] WEBSITE"
-      - "&6&l* &fVisit our website via &ewww.website.com %player_name%"
+      - "<yellow><bold>[!] TWITTER</bold>"
+      - "<gold><bold>*</bold> <white>Follow us on twitter <yellow>@ItzSave"
 
 
 #Create and edit your announcements. All announcements support PlaceholderAPI
 Announcements:
   Discord:
     Message:
-      - '&b&lThis is an example announcement &7(#1) %player_name%'
+      - '<aqua>This is an example announcement <gray>(#1)'
   Twitter:
     Message:
-      - '&c&lThis is an example announcement &7(#2)'
+      - '<red>This is an example announcement <gray>(#2)'
 
-join-messages:
-  rank1:
-    permission: "permission.rank1"
-    message: "&e∙&6∙ &e{PLAYER}&f has joined the server.&6∙&e∙"
-
-#Message sent when /donation is ran.
+#Message sent when /donation is run.
 Donation-Announcement:
-  - '&a%player% has donated at store.itzsave.org'
+  - '<green>%player% has donated at store.itzsave.org'
 
 Settings:
   #Disables or enables the custom commands located at the top of this file.
@@ -53,3 +48,9 @@ Settings:
 
   #Disables wither spawning.
   disable-wither-spawns: true
+
+  #Enables or disables silk spawner functions.
+  silk-spawner-fuctionality: true
+
+  #Enables the ability to change spawner type with an egg.
+  eggs-change-spawners: false

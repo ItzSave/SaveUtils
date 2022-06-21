@@ -9,7 +9,7 @@ import org.itzsave.SaveUtils;
 import java.util.Objects;
 import java.util.logging.Level;
 
-
+@SuppressWarnings("ClassCanBeRecord")
 public class CustomCommandListener implements Listener {
 
     private final SaveUtils plugin;
@@ -25,7 +25,7 @@ public class CustomCommandListener implements Listener {
                     command -> {
                         if (command.toLowerCase().equalsIgnoreCase(e.getMessage().split(" ")[0].replace("/", ""))) {
                             e.setCancelled(true);
-                            plugin.getConfig().getStringList("commands." + command + ".message").forEach(line -> e.getPlayer().sendMessage(PlaceholderAPI.setPlaceholders(e.getPlayer(), plugin.color(line))));
+                            plugin.getConfig().getStringList("commands." + command + ".message").forEach(line -> e.getPlayer().sendMessage(SaveUtils.color(PlaceholderAPI.setPlaceholders(e.getPlayer(), (line)))));
                         }
                     }
             );

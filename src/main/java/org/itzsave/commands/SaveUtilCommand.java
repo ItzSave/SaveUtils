@@ -22,7 +22,7 @@ public class SaveUtilCommand implements CommandExecutor {
         if (command.getName().equalsIgnoreCase("saveutil")) {
             if (args.length == 0) {
                 for (String msg : plugin.getLangFile().getStringList("Messages.help-message")) {
-                    sender.sendMessage(SaveUtils.color(msg).replace("%version%", plugin.getDescription().getVersion()));
+                    sender.sendMessage(SaveUtils.color(msg.replace("%version%", plugin.getDescription().getVersion())));
                 }
             } else {
                 if (args[0].equalsIgnoreCase("reload")) {

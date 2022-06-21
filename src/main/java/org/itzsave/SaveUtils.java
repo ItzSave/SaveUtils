@@ -1,6 +1,7 @@
 package org.itzsave;
 
-import net.md_5.bungee.api.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
@@ -9,28 +10,24 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.itzsave.commands.DonationCommand;
-import org.itzsave.commands.NightvisionCommand;
-import org.itzsave.commands.RuleCommand;
-import org.itzsave.commands.SaveUtilCommand;
+import org.itzsave.commands.*;
 import org.itzsave.commands.autotrash.AutoTrash;
 import org.itzsave.events.IllegalBookCreationEvent;
 import org.itzsave.events.ItemPickupEvent;
+import org.itzsave.events.SpawnerBreakEvent;
 import org.itzsave.listeners.CustomCommandListener;
 import org.itzsave.listeners.PlayerJoinListener;
 import org.itzsave.listeners.PlayerLeaveListener;
 import org.itzsave.listeners.WitherSpawnListener;
-import org.itzsave.tasks.AnnouncerTask;
+import org.itzsave.tasks.Announcement;
 import org.itzsave.utils.ConfigManager;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public final class SaveUtils extends JavaPlugin implements Listener {
 
     private ConfigManager langfile;
-    private AnnouncerTask announcements;
+    private Announcement announcements;
     private static SaveUtils instance;
 
     private HashMap<UUID, List<Material>> playerItems;
@@ -56,6 +53,7 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         this.registerCommand("nightvision", new NightvisionCommand());
         this.registerCommand("donation", new DonationCommand(this));
         this.registerCommand("autotrash", new AutoTrash(this));
+        //this.registerCommand("givespawner", new GiveSpawnerCommand(this));
 
         if (this.getConfig().getBoolean(("Settings.custom-commands-enabled"))) {
             this.registerEvents(new CustomCommandListener(this));
@@ -65,6 +63,7 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         this.registerEvents(new IllegalBookCreationEvent(this));
         this.registerEvents(new ItemPickupEvent(this));
         this.registerEvents(new WitherSpawnListener(this));
+        this.registerEvents(new SpawnerBreakEvent(this));
 
     }
 
@@ -74,13 +73,9 @@ public final class SaveUtils extends JavaPlugin implements Listener {
     }
 
 
-    @SuppressWarnings("unused")
     private void registerCommand(String name, CommandExecutor executor) {
-        Objects.requireNonNull(this.getCommand(name)).setExecutor(executor);
-    }
-
-    public static SaveUtils core() {
-        return instance;
+        //noinspection ConstantConditions
+        (this.getCommand(name)).setExecutor(executor);
     }
 
     private void registerEvents(Listener... listeners) {
@@ -90,26 +85,17 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         }
     }
 
+
     public FileConfiguration getLangFile() {
         return langfile.getConfig();
     }
 
-
-    public final static Pattern HEX_PATTERN = Pattern.compile("#[a-fA-F0-9]{6}");
-
-    @SuppressWarnings("deprecation")
-    public static String color(String message) {
-
-        Matcher matcher = HEX_PATTERN.matcher(message);
-        StringBuilder buffer = new StringBuilder();
-        while (matcher.find()) {
-            matcher.appendReplacement(buffer, net.md_5.bungee.api.ChatColor.of(matcher.group()).toString());
-        }
-        return ChatColor.translateAlternateColorCodes('&', matcher.appendTail(buffer).toString());
+    public static Component color(String message) {
+        return MiniMessage.miniMessage().deserialize(message);
     }
 
     public void loadAnnouncer() {
-        announcements = new AnnouncerTask();
+        announcements = new Announcement();
         announcements.register();
     }
 
@@ -162,6 +148,7 @@ public final class SaveUtils extends JavaPlugin implements Listener {
     }
 
     public void resetTrashItems(Player p) {
+        //noinspection RedundantCollectionOperation
         if (this.playerItems.containsKey(p.getUniqueId()))
             this.playerItems.remove(p.getUniqueId());
     }
