@@ -14,7 +14,6 @@ import org.itzsave.commands.*;
 import org.itzsave.commands.autotrash.AutoTrash;
 import org.itzsave.events.IllegalBookCreationEvent;
 import org.itzsave.events.ItemPickupEvent;
-import org.itzsave.events.SpawnerBreakEvent;
 import org.itzsave.listeners.CustomCommandListener;
 import org.itzsave.listeners.PlayerJoinListener;
 import org.itzsave.listeners.PlayerLeaveListener;
@@ -28,7 +27,6 @@ public final class SaveUtils extends JavaPlugin implements Listener {
 
     private ConfigManager langfile;
     private Announcement announcements;
-    private static SaveUtils instance;
 
     private HashMap<UUID, List<Material>> playerItems;
 
@@ -53,7 +51,6 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         this.registerCommand("nightvision", new NightvisionCommand());
         this.registerCommand("donation", new DonationCommand(this));
         this.registerCommand("autotrash", new AutoTrash(this));
-        //this.registerCommand("givespawner", new GiveSpawnerCommand(this));
 
         if (this.getConfig().getBoolean(("Settings.custom-commands-enabled"))) {
             this.registerEvents(new CustomCommandListener(this));
@@ -63,7 +60,6 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         this.registerEvents(new IllegalBookCreationEvent(this));
         this.registerEvents(new ItemPickupEvent(this));
         this.registerEvents(new WitherSpawnListener(this));
-        this.registerEvents(new SpawnerBreakEvent(this));
 
     }
 
