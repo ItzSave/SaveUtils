@@ -9,7 +9,6 @@ import org.itzsave.SaveUtils;
 import java.util.Objects;
 import java.util.logging.Level;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class CustomCommandListener implements Listener {
 
     private final SaveUtils plugin;
