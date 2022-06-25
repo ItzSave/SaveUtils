@@ -1,4 +1,4 @@
-package org.itzsave.events;
+package org.itzsave.listeners;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -13,11 +13,11 @@ import org.itzsave.SaveUtils;
 import java.util.Objects;
 
 
-public class ItemPickupEvent implements Listener {
+public class ItemPickupListener implements Listener {
 
     private final SaveUtils plugin;
 
-    public ItemPickupEvent(SaveUtils plugin) {
+    public ItemPickupListener(SaveUtils plugin) {
         this.plugin = plugin;
     }
 

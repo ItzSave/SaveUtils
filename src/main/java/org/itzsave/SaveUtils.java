@@ -8,20 +8,21 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.itzsave.commands.*;
+import org.itzsave.commands.DonationCommand;
+import org.itzsave.commands.NightvisionCommand;
+import org.itzsave.commands.RuleCommand;
+import org.itzsave.commands.SaveUtilCommand;
 import org.itzsave.commands.autotrash.AutoTrash;
-import org.itzsave.events.IllegalBookCreationEvent;
-import org.itzsave.events.ItemPickupEvent;
-import org.itzsave.listeners.CustomCommandListener;
-import org.itzsave.listeners.PlayerJoinListener;
-import org.itzsave.listeners.PlayerLeaveListener;
-import org.itzsave.listeners.WitherSpawnListener;
+import org.itzsave.listeners.*;
 import org.itzsave.tasks.Announcement;
 import org.itzsave.utils.ConfigManager;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Stream;
 
 public final class SaveUtils extends JavaPlugin implements Listener {
 
@@ -45,22 +46,21 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         langfile = new ConfigManager(this, "lang");
         langfile.saveDefaultConfig();
 
-
         this.registerCommand("saveutil", new SaveUtilCommand(this));
         this.registerCommand("rules", new RuleCommand());
         this.registerCommand("nightvision", new NightvisionCommand());
         this.registerCommand("donation", new DonationCommand(this));
         this.registerCommand("autotrash", new AutoTrash(this));
 
-        if (this.getConfig().getBoolean(("Settings.custom-commands-enabled"))) {
-            this.registerEvents(new CustomCommandListener(this));
-        }
-        this.registerEvents(new PlayerJoinListener(this));
-        this.registerEvents(new PlayerLeaveListener(this));
-        this.registerEvents(new IllegalBookCreationEvent(this));
-        this.registerEvents(new ItemPickupEvent(this));
-        this.registerEvents(new WitherSpawnListener(this));
-
+        Stream.of(
+                new PlayerJoinListener(this),
+                new IllegalBookCreationListener(this),
+                new ItemPickupListener(this),
+                new PlayerJoinListener(this),
+                new PlayerLeaveListener(this),
+                new WitherSpawnListener(this),
+                new CustomCommandListener(this)
+        ).forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, this));
     }
 
     @Override
@@ -73,14 +73,6 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         //noinspection ConstantConditions
         (this.getCommand(name)).setExecutor(executor);
     }
-
-    private void registerEvents(Listener... listeners) {
-        PluginManager pm = Bukkit.getPluginManager();
-        for (Listener listener : listeners) {
-            pm.registerEvents(listener, this);
-        }
-    }
-
 
     public FileConfiguration getLangFile() {
         return langfile.getConfig();

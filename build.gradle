@@ -1,10 +1,9 @@
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group = 'org.itzsave'
-version = '0.8-SNAPSHOT'
+version = '0.9-SNAPSHOT'
 
 repositories {
     mavenCentral()

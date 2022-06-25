@@ -1,6 +1,5 @@
-package org.itzsave.events;
+package org.itzsave.listeners;
 
-import net.kyori.adventure.text.Component;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerEditBookEvent;
@@ -9,11 +8,11 @@ import org.itzsave.SaveUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
-public class IllegalBookCreationEvent implements Listener {
+public class IllegalBookCreationListener implements Listener {
 
     private final SaveUtils plugin;
 
-    public IllegalBookCreationEvent(SaveUtils plugin) {
+    public IllegalBookCreationListener(SaveUtils plugin) {
         this.plugin = plugin;
     }
 

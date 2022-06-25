@@ -14,7 +14,7 @@ public class DonationCommand implements CommandExecutor {
 
     private final SaveUtils plugin;
 
-    public DonationCommand(SaveUtils plugin){
+    public DonationCommand(SaveUtils plugin) {
         this.plugin = plugin;
     }
 
