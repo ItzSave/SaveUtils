@@ -16,12 +16,14 @@ import org.itzsave.commands.SaveUtilCommand;
 import org.itzsave.commands.autotrash.AutoTrash;
 import org.itzsave.listeners.*;
 import org.itzsave.tasks.Announcement;
+import org.itzsave.tasks.AntiRaidFarm;
 import org.itzsave.utils.ConfigManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
 import java.util.stream.Stream;
 
 public final class SaveUtils extends JavaPlugin implements Listener {
@@ -36,6 +38,15 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         // Plugin startup logic
 
         saveDefaultConfig();
+
+
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            this.getLogger().log(Level.INFO, "PlaceholderAPI has been loaded support has been enabled.");
+        } else {
+            this.getLogger().log(Level.SEVERE, "--------- [SaveUtils] ---------");
+            this.getLogger().log(Level.SEVERE, "PlaceholderAPI was not found support has not been enabled.");
+            this.getLogger().log(Level.SEVERE, "--------- [SaveUtils] ---------");
+        }
 
         this.playerItems = new HashMap<>();
 
@@ -59,7 +70,8 @@ public final class SaveUtils extends JavaPlugin implements Listener {
                 new PlayerJoinListener(this),
                 new PlayerLeaveListener(this),
                 new WitherSpawnListener(this),
-                new CustomCommandListener(this)
+                new CustomCommandListener(this),
+                new AntiRaidFarm(this)
         ).forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, this));
     }
 

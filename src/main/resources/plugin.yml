@@ -1,7 +1,7 @@
 name: SaveUtils
 version: '${version}'
 main: org.itzsave.SaveUtils
-api-version: 1.18
+api-version: 1.19
 softdepend: [ PlaceholderAPI ]
 authors: [ ItzSave ]
 description: Simple ultily plugin to add random features/adjustments.
@@ -29,3 +29,5 @@ permissions:
     description: Allows users to join sliently.
   autotrash.use:
     description: Allows users to access the auto trash feature.
+  saveutil.raidfarmbypass:
+    description: Allows users to disable raid farm cooldown.
