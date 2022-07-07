@@ -5,14 +5,6 @@
 # All message support hex in the &<hex> format. Adventure is a WIP
 #
 
-tablist:
-  header:
-    - '<green>Hello!'
-    - '<yellow> how are you?'
-  footer:
-    - '<green>Hello!'
-    - '<yellow> how are you?'
-
 commands:
   #This is the command name. This command for example is /twitter.
   twitter:
