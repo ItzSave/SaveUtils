@@ -7,6 +7,7 @@ import org.itzsave.SaveUtils;
 
 import java.util.Objects;
 
+@SuppressWarnings("ConstantConditions")
 public class PlayerLeaveListener implements Listener {
 
     private final SaveUtils plugin;
@@ -18,10 +19,10 @@ public class PlayerLeaveListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         if (plugin.getConfig().getBoolean("Settings.leave-message-enabled")) {
-            if (e.getPlayer().hasPermission("savecore.slient")) {
+            if (e.getPlayer().hasPermission("saveutil.slient")) {
                 e.quitMessage(null);
             } else {
-                e.quitMessage(Objects.requireNonNull(SaveUtils.color(Objects.requireNonNull(plugin.getLangFile().getString("Event-Messages.leave-message")).replace("%player%", e.getPlayer().getName()))));
+                e.quitMessage(SaveUtils.color(Objects.requireNonNull(plugin.getLangFile().getString("Event-Messages.leave-message").replace("%player%", e.getPlayer().getName()))));
             }
         } else {
             e.quitMessage(null);

@@ -10,9 +10,8 @@ import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.itzsave.SaveUtils;
 
-import java.util.Objects;
 
-
+@SuppressWarnings("ConstantConditions")
 public class ItemPickupListener implements Listener {
 
     private final SaveUtils plugin;
@@ -31,10 +30,9 @@ public class ItemPickupListener implements Listener {
             Material item = e.getItem().getItemStack().getType();
 
             if (this.plugin.getTrashItems(p) == null) {
-                //this.plugin.getServer().getLogger().log(Level.SEVERE, "Trash Items ret null.");
                 return;
             }
-            if (Objects.requireNonNull(this.plugin.getTrashItemsMat(p)).contains(item)) {
+            if (this.plugin.getTrashItemsMat(p).contains(item)) {
                 e.getItem().remove();
                 e.setCancelled(true);
             }
@@ -45,7 +43,7 @@ public class ItemPickupListener implements Listener {
     public void onInventory(InventoryPickupItemEvent e) {
         for (HumanEntity he : e.getInventory().getViewers()) {
             if (he instanceof Player p) {
-                if (Objects.requireNonNull(this.plugin.getTrashItemsMat(p)).contains(e.getItem().getItemStack().getType()))
+                if (this.plugin.getTrashItemsMat(p).contains(e.getItem().getItemStack().getType()))
                     e.getItem().remove();
             }
         }

@@ -3,7 +3,7 @@ Messages:
   no-permission: '<red>You do not have permission to use this command.'
 
   #Message sent when the plugin has been reloaded.
-  reloaded: '<green>SaveCore has been reloaded!'
+  reloaded: '<green>SaveUtil has been reloaded!'
 
   #Message sent when a user enables their nightvision effect.
   nightvision-enabled: '<green>You have enabled your nightvision effect.'
@@ -19,7 +19,11 @@ Messages:
 
   #Message sent when a user runs /savecore
   help-message:
-    - '<aqua><bold>SaveCoreV5</bold> <gray>[%version%]'
+    - '<aqua><bold>SaveUtil</bold> <gray>[%version%]'
+    - ''
+    - '<green</nightvision <dark_gray>- <white>Gives you night vision effect.'
+    - '<green</donation [username] <dark_gray>- <white>Displays the donation message.'
+    - ''
 
   #Message displayed when a user runs /rules
   rules:
@@ -39,6 +43,7 @@ Messages:
   #Auto trash messages.
   HELP_PAGE:
     - "<aqua><bold>AutoTrash</bold>"
+    - ""
     - "<green>/autotrash add <material> <dark_gray>- <white>Add an item to your Trash List."
     - "<green>/autotrash remove <material> <dark_gray>- <white>Remove an item from your Trash List."
     - "<green>/autotrash list <dark_gray>- <white>Outputs your Trash List."
