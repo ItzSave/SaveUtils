@@ -5,6 +5,7 @@
 # All message support hex in the &<hex> format. Adventure is a WIP
 #
 
+
 commands:
   #This is the command name. This command for example is /twitter.
   twitter:
@@ -14,7 +15,8 @@ commands:
       - "<gold><bold>*</bold> <white>Follow us on twitter <yellow>@ItzSave"
 
 
-#Create and edit your announcements. All announcements support PlaceholderAPI
+#Create and edit your announcements.
+#If messages are centered they do not support PlaceholderAPI!
 Announcements:
   Discord:
     Message:
@@ -34,14 +36,14 @@ Settings:
   #Enables the automatic announcements.
   enable-announcer: true
 
+  #Centers the announcement messages.
+  center-announcements: false
+
   #Disables or enables custom join message.
   join-message-enabled: false
 
   #Disables or enables custom leave messages.
   leave-message-enabled: false
-
-  #Enable custom join messages located above.
-  custom-join-messages-enabled: false
 
   #Time between messages in seconds.
   announcer-interval: 600

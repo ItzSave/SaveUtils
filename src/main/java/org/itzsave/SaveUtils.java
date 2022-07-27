@@ -14,9 +14,11 @@ import org.itzsave.commands.NightvisionCommand;
 import org.itzsave.commands.RuleCommand;
 import org.itzsave.commands.SaveUtilCommand;
 import org.itzsave.commands.autotrash.AutoTrash;
+import org.itzsave.handlers.AutoTrashHandler;
 import org.itzsave.listeners.*;
 import org.itzsave.tasks.Announcement;
 import org.itzsave.tasks.AntiRaidFarm;
+import org.itzsave.utils.ChatCenter;
 import org.itzsave.utils.ConfigManager;
 
 import java.util.ArrayList;
@@ -30,8 +32,11 @@ public final class SaveUtils extends JavaPlugin implements Listener {
 
     private ConfigManager langfile;
     private Announcement announcements;
+    private ChatCenter chatCenter;
 
-    private HashMap<UUID, List<Material>> playerItems;
+    public HashMap<UUID, List<Material>> playerItems;
+
+    private AutoTrashHandler autoTrashHandler;
 
     @Override
     public void onEnable() {
@@ -39,6 +44,9 @@ public final class SaveUtils extends JavaPlugin implements Listener {
 
         saveDefaultConfig();
 
+        this.chatCenter = new ChatCenter();
+        this.playerItems = new HashMap<>();
+        this.autoTrashHandler = new AutoTrashHandler(this);
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             this.getLogger().log(Level.INFO, "PlaceholderAPI has been loaded support has been enabled.");
@@ -99,57 +107,22 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         announcements.register();
     }
 
+    public AutoTrashHandler getAutoTrashHandler() {
+        return this.autoTrashHandler;
+    }
 
     //Reload handler
     public void onReload() {
         reloadConfig();
         langfile.reload();
         if (this.getConfig().getBoolean("Settings.enable-announcer")) {
+            Bukkit.getLogger().log(Level.INFO, "Announcer is being reloaded.");
             announcements.cancel();
-            announcements.register();
+           loadAnnouncer();
         }
     }
 
-    public void addAutoTrashItem(Player p, Material item) {
-        if (!this.playerItems.containsKey(p.getUniqueId())) {
-            List<Material> temp = new ArrayList<>();
-            temp.add(item);
-            this.playerItems.put(p.getUniqueId(), temp);
-        } else {
-            List<Material> temp = new ArrayList<>(this.playerItems.get(p.getUniqueId()));
-            temp.add(item);
-            this.playerItems.remove(p.getUniqueId());
-            this.playerItems.put(p.getUniqueId(), temp);
-        }
-    }
-
-    public void remAutoTrashItem(Player p, Material item) {
-        if (this.playerItems.containsKey(p.getUniqueId()) && this.playerItems.get(p.getUniqueId()).contains(item)) {
-            List<Material> temp = new ArrayList<>(this.playerItems.get(p.getUniqueId()));
-            temp.remove(item);
-            this.playerItems.remove(p.getUniqueId());
-            this.playerItems.put(p.getUniqueId(), temp);
-        }
-    }
-
-    public List<String> getTrashItems(Player p) {
-        if (!this.playerItems.containsKey(p.getUniqueId()))
-            return null;
-        List<String> ret = new ArrayList<>();
-        for (Material item : this.playerItems.get(p.getUniqueId()))
-            ret.add(item.name());
-        return ret;
-    }
-
-    public List<Material> getTrashItemsMat(Player p) {
-        if (!this.playerItems.containsKey(p.getUniqueId()))
-            return null;
-        return new ArrayList<>(this.playerItems.get(p.getUniqueId()));
-    }
-
-    public void resetTrashItems(Player p) {
-        //noinspection RedundantCollectionOperation
-        if (this.playerItems.containsKey(p.getUniqueId()))
-            this.playerItems.remove(p.getUniqueId());
+    public ChatCenter getChatCenter() {
+        return this.chatCenter;
     }
 }

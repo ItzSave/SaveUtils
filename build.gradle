@@ -3,7 +3,12 @@ plugins {
 }
 
 group = 'org.itzsave'
-version = '1.0.1-SNAPSHOT'
+version = '1.0.4-SNAPSHOT'
+
+compileJava {
+    options.compilerArgs += ['-parameters']
+    options.encoding = "UTF-8"
+}
 
 repositories {
     mavenCentral()
@@ -22,22 +27,5 @@ repositories {
 
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.19-R0.1-SNAPSHOT'
-    compileOnly 'me.clip:placeholderapi:2.11.2'
-}
-
-def targetJavaVersion = 17
-
-java {
-    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    sourceCompatibility = javaVersion
-    targetCompatibility = javaVersion
-}
-
-processResources {
-    def props = [version: version]
-    inputs.properties props
-    filteringCharset 'UTF-8'
-    filesMatching('plugin.yml') {
-        expand props
-    }
+    compileOnly ('me.clip:placeholderapi:2.11.2')
 }

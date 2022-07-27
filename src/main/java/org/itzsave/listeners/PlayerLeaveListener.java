@@ -27,6 +27,6 @@ public class PlayerLeaveListener implements Listener {
         } else {
             e.quitMessage(null);
         }
-        plugin.resetTrashItems(e.getPlayer());
+        plugin.getAutoTrashHandler().resetTrashItems(e.getPlayer());
     }
 }

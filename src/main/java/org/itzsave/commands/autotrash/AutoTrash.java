@@ -35,7 +35,7 @@ public class AutoTrash implements CommandExecutor {
                         if (item == null) {
                             p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.NOT_VALID_ITEM")));
                         } else {
-                            this.plugin.addAutoTrashItem(p, item);
+                            plugin.getAutoTrashHandler().addAutoTrashItem(p, item);
                             p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.ITEM_ADD_SUCCESS").replace("%item%", item.name())));
                         }
                     } else {
@@ -47,22 +47,22 @@ public class AutoTrash implements CommandExecutor {
                         if (item == null) {
                             p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.NOT_VALID_ITEM")));
                         } else {
-                            this.plugin.remAutoTrashItem(p, item);
+                            plugin.getAutoTrashHandler().remAutoTrashItem(p, item);
                             p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.ITEM_REM_SUCCESS").replace("%item%", item.name())));
                         }
                     } else {
                         p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.NOT_ENOUGH_ARGS")));
                     }
                 } else if (args[0].equalsIgnoreCase("list")) {
-                    if (this.plugin.getTrashItems(p) == null) {
+                    if (plugin.getAutoTrashHandler().getTrashItems(p) == null) {
                         p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.TRASH_LIST_EMPTY")));
                         return false;
                     }
-                    List<String> items = new ArrayList<>(Objects.requireNonNull(this.plugin.getTrashItems(p)));
+                    List<String> items = new ArrayList<>(Objects.requireNonNull(plugin.getAutoTrashHandler().getTrashItems(p)));
                     String pl = String.join(", ", items);
                     p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.TRASH_LIST_FORMAT").replace("%trashlist%", pl)));
                 } else if (args[0].equalsIgnoreCase("reset")) {
-                    this.plugin.resetTrashItems(p);
+                    plugin.getAutoTrashHandler().resetTrashItems(p);
                     p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.TRASH_LIST_RESET")));
                 } else {
                     p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.NOT_VALID_ARG")));
