@@ -5,6 +5,7 @@ A remake of the "SaveCore" series designed to be a utility plugin that has vario
 - /nightvision - Enables a nightvision potion effect.
 - /donation - Displays a message from the config useful for when a player donates.
 - /autotrash - Allows users to disable picking up of certain items.
+- /rules - Displays a list of rules changeable in the lang.yml
 
 # Features:
 - Illegal character blocking in books.
@@ -13,3 +14,4 @@ A remake of the "SaveCore" series designed to be a utility plugin that has vario
 - Ability to disable raid farms.
 - Auto announcer.
 - PlaceholderAPI support in most messages.
+- Ability to center announcer messages.
