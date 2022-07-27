@@ -1,13 +1,12 @@
 package org.itzsave.utils;
 
-import net.kyori.adventure.text.Component;
-import org.bukkit.ChatColor;
+import me.clip.placeholderapi.PlaceholderAPI;
+
 import org.bukkit.entity.Player;
 import org.itzsave.SaveUtils;
 
 @SuppressWarnings("ConstantConditions")
 public class ChatCenter {
-    private final int CENTER_PX = 154;
 
     public enum DefaultFontInfo {
         A('A', 5),
@@ -107,9 +106,9 @@ public class ChatCenter {
         SPACE(' ', 3),
         DEFAULT('a', 4);
 
-        private int length;
+        private final int length;
 
-        private char character;
+        private final char character;
 
         DefaultFontInfo(char character, int length) {
             this.character = character;
@@ -150,11 +149,7 @@ public class ChatCenter {
                 previousCode = true;
             } else if (previousCode) {
                 previousCode = false;
-                if (c == 'l' || c == 'L') {
-                    isBold = true;
-                } else {
-                    isBold = false;
-                }
+                isBold = c == 'l' || c == 'L';
             } else {
                 DefaultFontInfo dFI = DefaultFontInfo.getDefaultFontInfo(c);
                 messagePxSize += isBold ? dFI.getBoldLength() : dFI.getLength();
@@ -170,7 +165,7 @@ public class ChatCenter {
             sb.append(" ");
             compensated += spaceLength;
         }
-        player.sendMessage(SaveUtils.color(sb + message));
+        player.sendMessage(SaveUtils.color(PlaceholderAPI.setPlaceholders(player, sb + message)));
     }
 }
 
