@@ -6,7 +6,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.itzsave.commands.DonationCommand;
@@ -18,10 +17,8 @@ import org.itzsave.handlers.AutoTrashHandler;
 import org.itzsave.listeners.*;
 import org.itzsave.tasks.Announcement;
 import org.itzsave.tasks.AntiRaidFarm;
-import org.itzsave.utils.ChatCenter;
 import org.itzsave.utils.ConfigManager;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -32,7 +29,6 @@ public final class SaveUtils extends JavaPlugin implements Listener {
 
     private ConfigManager langfile;
     private Announcement announcements;
-    private ChatCenter chatCenter;
 
     public HashMap<UUID, List<Material>> playerItems;
 
@@ -44,7 +40,6 @@ public final class SaveUtils extends JavaPlugin implements Listener {
 
         saveDefaultConfig();
 
-        this.chatCenter = new ChatCenter();
         this.playerItems = new HashMap<>();
         this.autoTrashHandler = new AutoTrashHandler(this);
 
@@ -79,7 +74,8 @@ public final class SaveUtils extends JavaPlugin implements Listener {
                 new PlayerLeaveListener(this),
                 new WitherSpawnListener(this),
                 new CustomCommandListener(this),
-                new AntiRaidFarm(this)
+                new AntiRaidFarm(this),
+                new BedInteractEvent(this)
         ).forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, this));
     }
 
@@ -120,9 +116,5 @@ public final class SaveUtils extends JavaPlugin implements Listener {
             announcements.cancel();
            loadAnnouncer();
         }
-    }
-
-    public ChatCenter getChatCenter() {
-        return this.chatCenter;
     }
 }

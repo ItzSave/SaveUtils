@@ -72,10 +72,6 @@ public class Announcement implements Listener {
 
 
     public void displayMessage() {
-        if (plugin.getConfig().getBoolean("Settings.center-announcements")) {
-            msg.forEach(msg -> Bukkit.getOnlinePlayers().forEach(players -> plugin.getChatCenter().sendCenteredMessage(players, msg)));
-        } else {
-            msg.forEach(msg -> Bukkit.getOnlinePlayers().forEach(players -> players.sendMessage(SaveUtils.color(PlaceholderAPI.setPlaceholders(players, msg)))));
-        }
+        msg.forEach(msg -> Bukkit.getOnlinePlayers().forEach(players -> players.sendMessage(SaveUtils.color(PlaceholderAPI.setPlaceholders(players, msg)))));
     }
 }

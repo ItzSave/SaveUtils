@@ -22,14 +22,14 @@ public class DonationCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, Command cmd, @NotNull String commandLabel, String[] args) {
         if (cmd.getName().equalsIgnoreCase("donation")) {
-            if (sender.hasPermission("savecore.admin")) {
+            if (sender.hasPermission("saveutil.admin")) {
                 if (args.length == 0) {
                     sender.sendMessage(SaveUtils.color("Usage: /donate <player>"));
                     return true;
                 } else {
                     Player target = Bukkit.getOnlinePlayers().stream().filter(p -> p.getName().equalsIgnoreCase(args[0])).findFirst().orElse(null);
                     if (target == null) {
-                        sender.sendMessage(SaveUtils.color("&cWe could not find that user please try again.")); //.replace("%player%", target.getPlayer().getName()));
+                        sender.sendMessage(SaveUtils.color("&cWe could not find that user please try again."));
                     } else {
                         Bukkit.getOnlinePlayers().forEach(p -> {
                             for (String msg : plugin.getConfig().getStringList("Donation-Announcement")) {

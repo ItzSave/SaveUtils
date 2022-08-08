@@ -14,4 +14,4 @@ A remake of the "SaveCore" series designed to be a utility plugin that has vario
 - Ability to disable raid farms.
 - Auto announcer.
 - PlaceholderAPI support in most messages.
-- Ability to center announcer messages.
+- Warning message when users enter beds useful for disabling bed respawning.

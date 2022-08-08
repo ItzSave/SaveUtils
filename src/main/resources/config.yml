@@ -33,11 +33,11 @@ Settings:
   #Disables or enables the custom commands located at the top of this file.
   custom-commands-enabled: true
 
-  #Enables the automatic announcements.
-  enable-announcer: true
+  #Sends a configurable message when a user tries to enter a bed.
+  warning-message-for-beds: false
 
-  #Centers the announcement messages.
-  center-announcements: false
+  #Enables the automatic announcements.
+  enable-announcer: false
 
   #Disables or enables custom join message.
   join-message-enabled: false

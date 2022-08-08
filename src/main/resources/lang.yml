@@ -5,6 +5,9 @@ Messages:
   #Message sent when the plugin has been reloaded.
   reloaded: '<green>SaveUtil has been reloaded!'
 
+  #Message sent when a user enters a bed if warning messages are enabled.
+  bed-warning-message: '<red>You have not set a home please use /sethome to return to this area after death!'
+
   #Message sent when a user enables their nightvision effect.
   nightvision-enabled: '<green>You have enabled your nightvision effect.'
 
@@ -21,8 +24,8 @@ Messages:
   help-message:
     - '<aqua><bold>SaveUtil</bold> <gray>[%version%]'
     - ''
-    - '<green</nightvision <dark_gray>- <white>Gives you night vision effect.'
-    - '<green</donation [username] <dark_gray>- <white>Displays the donation message.'
+    - '<green>/nightvision <dark_gray>- <white>Gives you night vision effect.'
+    - '<green>/donation [username] <dark_gray>- <white>Displays the donation message.'
     - ''
 
   #Message displayed when a user runs /rules
