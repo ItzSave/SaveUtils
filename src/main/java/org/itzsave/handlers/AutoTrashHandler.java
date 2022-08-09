@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public class AutoTrashHandler {
-    private SaveUtils plugin;
+    private final SaveUtils plugin;
 
     public AutoTrashHandler(SaveUtils plugin) {
         this.plugin = plugin;

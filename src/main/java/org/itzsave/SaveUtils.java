@@ -38,6 +38,7 @@ public final class SaveUtils extends JavaPlugin implements Listener {
     public void onEnable() {
         // Plugin startup logic
 
+
         saveDefaultConfig();
 
         this.playerItems = new HashMap<>();
@@ -50,6 +51,18 @@ public final class SaveUtils extends JavaPlugin implements Listener {
             this.getLogger().log(Level.SEVERE, "PlaceholderAPI was not found support has not been enabled.");
             this.getLogger().log(Level.SEVERE, "--------- [SaveUtils] ---------");
         }
+
+
+        try{
+            Class.forName("org.purpurmc.purpur.PurpurConfig");
+        } catch (ClassNotFoundException e) {
+            getLogger().warning("--------- [SaveUtils] ---------");
+            getLogger().warning("You are not running Purpur! Be sure to disable any config options that");
+            getLogger().warning("require purpur or you will encounter errors and or crashes!");
+            getLogger().warning("--------- [SaveUtils] ---------");
+        }
+
+
 
         this.playerItems = new HashMap<>();
 
@@ -65,6 +78,11 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         this.registerCommand("nightvision", new NightvisionCommand());
         this.registerCommand("donation", new DonationCommand(this));
         this.registerCommand("autotrash", new AutoTrash(this));
+
+        if (this.getConfig().getBoolean("Purpur-Settings.give-books-when-grindstone-disenchant")){
+            Bukkit.getPluginManager().registerEvents(new GrindstoneEnchantListener(), this);
+            Bukkit.getLogger().log(Level.INFO, "[SaveUtils] Loading Purpur settings.");
+        }
 
         Stream.of(
                 new PlayerJoinListener(this),
@@ -114,7 +132,7 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         if (this.getConfig().getBoolean("Settings.enable-announcer")) {
             Bukkit.getLogger().log(Level.INFO, "Announcer is being reloaded.");
             announcements.cancel();
-           loadAnnouncer();
+            loadAnnouncer();
         }
     }
 }

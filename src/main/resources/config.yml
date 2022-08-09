@@ -5,7 +5,6 @@
 # All message support hex in the &<hex> format. Adventure is a WIP
 #
 
-
 commands:
   #This is the command name. This command for example is /twitter.
   twitter:
@@ -28,6 +27,11 @@ Announcements:
 #Message sent when /donation is run.
 Donation-Announcement:
   - '<green>%player% has donated at store.itzsave.org'
+
+#This requires the server to be running Purpur in order to work. https://purpurmc.org/
+Purpur-Settings:
+  #Gives a user an enchantment book of the enchantment(s) removed from the item.
+  give-books-when-grindstone-disenchant: true
 
 Settings:
   #Disables or enables the custom commands located at the top of this file.
