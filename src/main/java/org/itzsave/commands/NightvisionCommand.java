@@ -21,7 +21,7 @@ public class NightvisionCommand implements CommandExecutor {
             sender.sendMessage(SaveUtils.color("&cThs command can only be run from in-game"));
         } else {
             if (command.getName().equalsIgnoreCase("nightvision")) {
-                if (player.hasPermission("savecore.nightvision")) {
+                if (player.hasPermission("saveutil.nightvision")) {
                     if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
                         player.sendMessage(SaveUtils.color(plugin.getLangFile().getString("Messages.nightvision-disabled")));
                         player.removePotionEffect(PotionEffectType.NIGHT_VISION);

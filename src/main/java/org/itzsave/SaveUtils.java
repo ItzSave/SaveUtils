@@ -2,6 +2,7 @@ package org.itzsave;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
@@ -29,6 +30,7 @@ public final class SaveUtils extends JavaPlugin implements Listener {
 
     private ConfigManager langfile;
     private Announcement announcements;
+    public LuckPerms luckPerms;
 
     public HashMap<UUID, List<Material>> playerItems;
 
@@ -38,6 +40,8 @@ public final class SaveUtils extends JavaPlugin implements Listener {
     public void onEnable() {
         // Plugin startup logic
 
+        //Load luckperms
+        this.luckPerms = getServer().getServicesManager().load(LuckPerms.class);
 
         saveDefaultConfig();
 
@@ -53,7 +57,7 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         }
 
 
-        try{
+        try {
             Class.forName("org.purpurmc.purpur.PurpurConfig");
         } catch (ClassNotFoundException e) {
             getLogger().warning("--------- [SaveUtils] ---------");
@@ -61,7 +65,6 @@ public final class SaveUtils extends JavaPlugin implements Listener {
             getLogger().warning("require purpur or you will encounter errors and or crashes!");
             getLogger().warning("--------- [SaveUtils] ---------");
         }
-
 
 
         this.playerItems = new HashMap<>();
@@ -79,9 +82,9 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         this.registerCommand("donation", new DonationCommand(this));
         this.registerCommand("autotrash", new AutoTrash(this));
 
-        if (this.getConfig().getBoolean("Purpur-Settings.give-books-when-grindstone-disenchant")){
+        if (this.getConfig().getBoolean("Purpur-Settings.give-books-when-grindstone-disenchant")) {
             Bukkit.getPluginManager().registerEvents(new GrindstoneEnchantListener(), this);
-            Bukkit.getLogger().log(Level.INFO, "[SaveUtils] Loading Purpur settings.");
+            Bukkit.getLogger().log(Level.INFO, "[SaveUtils] Loading GrindstoneDisenchantmentListener.");
         }
 
         Stream.of(
@@ -93,7 +96,9 @@ public final class SaveUtils extends JavaPlugin implements Listener {
                 new WitherSpawnListener(this),
                 new CustomCommandListener(this),
                 new AntiRaidFarm(this),
-                new BedInteractEvent(this)
+                new BedInteractEvent(this),
+                new SleepPercentageListener(this),
+                new ChatListener(this)
         ).forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, this));
     }
 
@@ -135,4 +140,5 @@ public final class SaveUtils extends JavaPlugin implements Listener {
             loadAnnouncer();
         }
     }
+
 }

@@ -20,6 +20,11 @@ Messages:
   #Message sent when a user tries to create an illegal book.
   illegal-book: '<red>You are not allowed to use illegal characters in a book!'
 
+  send-sleep-percentage-message:
+    player-sleeping: '<grey><playername> has fallen asleep. <sleeping> out of <needed> required players in <worldname> are sleeping.'
+    skipping-night: '<grey>Enough players have slept! Skipping through the night in <worldname>.'
+
+
   #Message sent when a user runs /savecore
   help-message:
     - '<aqua><bold>SaveUtil</bold> <gray>[%version%]'

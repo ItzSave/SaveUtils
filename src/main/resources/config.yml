@@ -2,8 +2,28 @@
 # SaveCoreV5
 # Developed by Save#5636
 #
-# All message support hex in the &<hex> format. Adventure is a WIP
+# Permissions
+# saveutil.nightvision - Gives access to /nightvision
+# saveutil.admin - Gives access to admin functions such as /reload.
+# saveutil.raidfarmbypass - Allows users to bypass raid farm cooldown
+# saveutil.slient - Allows users to join silently if join & leave messages are enabled.
+# autotrash.use - Allows users to use the autotrash features,
 #
+
+# Chat formatting Placeholders:
+# The content of the message is added at the end.
+#
+# {name} - the player's name
+# {displayname} - the player's display name / nickname
+# {prefix} - the player's highest priority prefix
+# {suffix} - the player's highest priority suffix
+#
+chat-format: "{prefix}{name}: "
+
+# Set the format per group.
+group-formats:
+#  default: "[Default] {name}: "
+#  admin: "[Admin] {name}: "
 
 commands:
   #This is the command name. This command for example is /twitter.
@@ -15,7 +35,6 @@ commands:
 
 
 #Create and edit your announcements.
-#If messages are centered they do not support PlaceholderAPI!
 Announcements:
   Discord:
     Message:
@@ -31,7 +50,7 @@ Donation-Announcement:
 #This requires the server to be running Purpur in order to work. https://purpurmc.org/
 Purpur-Settings:
   #Gives a user an enchantment book of the enchantment(s) removed from the item.
-  give-books-when-grindstone-disenchant: true
+  give-books-when-grindstone-disenchant: false
 
 Settings:
   #Disables or enables the custom commands located at the top of this file.
@@ -54,9 +73,6 @@ Settings:
 
   #Disables wither spawning.
   disable-wither-spawns: true
-
-  #Enables the ability to change spawner type with an egg.
-  eggs-change-spawners: false
 
   #Enables or disables raid farms.
   anti-raid-farm: false

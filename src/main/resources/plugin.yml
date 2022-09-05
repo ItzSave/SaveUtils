@@ -1,8 +1,8 @@
 name: SaveUtils
 version: '${version}'
 main: org.itzsave.SaveUtils
-api-version: 1.18
-softdepend: [ PlaceholderAPI ]
+api-version: 1.19
+softdepend: [ PlaceholderAPI, LuckPerms ]
 authors: [ ItzSave ]
 description: Simple ultily plugin to add random features/adjustments.
 
