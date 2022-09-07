@@ -16,7 +16,6 @@ public class BedInteractEvent implements Listener {
     @EventHandler
     public void onBedEnter(PlayerBedEnterEvent e) {
         if (plugin.getConfig().getBoolean("Settings.warning-message-for-beds")) {
-            //e.setCancelled(true);
             e.getPlayer().sendMessage(SaveUtils.color(plugin.getLangFile().getString("Messages.bed-warning-message")));
 
         }

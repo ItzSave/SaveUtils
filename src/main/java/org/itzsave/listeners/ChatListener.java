@@ -2,6 +2,7 @@ package org.itzsave.listeners;
 
 import io.papermc.paper.chat.ChatRenderer;
 import io.papermc.paper.event.player.AsyncChatEvent;
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -16,20 +17,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-// Yoinked from https://github.com/wikmor/LPC
-// Help from https://gist.github.com/ItsSimplyLeo/e4eca09ba499b54f906428df33054113#file-basicchatrender-java
-@SuppressWarnings("FieldCanBeLocal")
+// Some methods from https://github.com/wikmor/LPC
+// Lots of help from https://gist.github.com/ItsSimplyLeo/e4eca09ba499b54f906428df33054113#file-basicchatrender-java
 public class ChatListener implements Listener {
-
-    private final SaveUtils plugin;
-
-    public ChatListener(SaveUtils plugin) {
-        this.plugin = plugin;
-    }
 
     @EventHandler
     public void onChat(AsyncChatEvent event) {
@@ -53,6 +45,8 @@ public class ChatListener implements Listener {
                     .replace("{prefix}", metaData.getPrefix() != null ? metaData.getPrefix() : "")
                     .replace("{suffix}", metaData.getSuffix() != null ? metaData.getSuffix() : "")
                     .replace("{name}", source.getName());
+
+            format = plugin.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI") ? PlaceholderAPI.setPlaceholders(source, format) : format;
 
             resolverList.addAll(List.of(Placeholder.component("message", message)));
 

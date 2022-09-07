@@ -98,7 +98,7 @@ public final class SaveUtils extends JavaPlugin implements Listener {
                 new AntiRaidFarm(this),
                 new BedInteractEvent(this),
                 new SleepPercentageListener(this),
-                new ChatListener(this)
+                new ChatListener()
         ).forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, this));
     }
 
