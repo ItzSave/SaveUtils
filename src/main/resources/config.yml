@@ -6,7 +6,6 @@
 # saveutil.nightvision - Gives access to /nightvision
 # saveutil.admin - Gives access to admin functions such as /reload.
 # saveutil.raidfarmbypass - Allows users to bypass raid farm cooldown
-# saveutil.slient - Allows users to join silently if join & leave messages are enabled.
 # autotrash.use - Allows users to use the autotrash features,
 
 Settings:
