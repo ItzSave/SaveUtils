@@ -1,9 +1,11 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+
 }
 
 group = 'org.itzsave'
-version = '1.1.1-SNAPSHOT'
+version = '2.0-ALPHA'
 
 compileJava {
     options.compilerArgs += ['-parameters']
@@ -12,22 +14,19 @@ compileJava {
 
 repositories {
     mavenCentral()
-    maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
-    maven{ url = uri("https://repo.purpurmc.org/snapshots")}
-    maven {
-        name = 'sonatype'
-        url = 'https://oss.sonatype.org/content/groups/public/'
-    }
-    maven {
-        url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'
-    }
+    maven { url = uri("https://repo.purpurmc.org/snapshots") }
+    maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
 }
 
 dependencies {
     compileOnly("org.purpurmc.purpur:purpur-api:1.19.2-R0.1-SNAPSHOT")
     compileOnly('me.clip:placeholderapi:2.11.2')
     compileOnly("net.luckperms:api:5.4")
+    compileOnly('me.mattstudios.utils:matt-framework:1.4.6')
 }
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+
+shadowJar {
+    minimize()
+    classifier(null)
+    relocate 'me.mattstudios.mf', 'org.itzsave.utils.commands'
 }

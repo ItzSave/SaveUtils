@@ -1,5 +1,5 @@
 #
-# SaveCoreV5
+# SaveUtils
 # Developed by Save#5636
 #
 # Permissions
@@ -8,7 +8,39 @@
 # saveutil.raidfarmbypass - Allows users to bypass raid farm cooldown
 # saveutil.slient - Allows users to join silently if join & leave messages are enabled.
 # autotrash.use - Allows users to use the autotrash features,
-#
+
+Settings:
+  # Enables the purpur config options found below.
+  # WARNING: You must be running purpur, or you will have errors or crashes.
+  enable-purpur-settings: false
+
+  #Disables or enables the custom commands located at the top of this file.
+  custom-commands-enabled: true
+
+  #Sends a configurable message when a user tries to enter a bed.
+  warning-message-for-beds: false
+
+  #Enables the automatic announcements.
+  enable-announcer: false
+
+  #Disables or enables custom join message.
+  join-message-enabled: false
+
+  #Disables or enables custom leave messages.
+  leave-message-enabled: false
+
+  #Time between messages in seconds.
+  announcer-interval: 600
+
+  #Disables wither spawning.
+  disable-wither-spawns: true
+
+  #Enables or disables raid farms.
+  anti-raid-farm: false
+
+  # How many seconds must a player wait between starting raids
+  # Give the permission `saveutil.raidfarmbypass` to players you wish to bypass this
+  raid-cooldown-seconds: 180
 
 # Chat formatting Placeholders:
 # The content of the message is added at the end.
@@ -51,32 +83,3 @@ Donation-Announcement:
 Purpur-Settings:
   #Gives a user an enchantment book of the enchantment(s) removed from the item.
   give-books-when-grindstone-disenchant: false
-
-Settings:
-  #Disables or enables the custom commands located at the top of this file.
-  custom-commands-enabled: true
-
-  #Sends a configurable message when a user tries to enter a bed.
-  warning-message-for-beds: false
-
-  #Enables the automatic announcements.
-  enable-announcer: false
-
-  #Disables or enables custom join message.
-  join-message-enabled: false
-
-  #Disables or enables custom leave messages.
-  leave-message-enabled: false
-
-  #Time between messages in seconds.
-  announcer-interval: 600
-
-  #Disables wither spawning.
-  disable-wither-spawns: true
-
-  #Enables or disables raid farms.
-  anti-raid-farm: false
-
-  # How many seconds must a player wait between starting raids
-  # Give the permission `saveutil.raidfarmbypass` to players you wish to bypass this
-  raid-cooldown-seconds: 180

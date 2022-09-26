@@ -40,10 +40,13 @@ public final class SaveUtils extends JavaPlugin implements Listener {
     public void onEnable() {
         // Plugin startup logic
 
-        //Load luckperms
+        // Load luckperms
         this.luckPerms = getServer().getServicesManager().load(LuckPerms.class);
 
         saveDefaultConfig();
+
+        // Checking if purpur is installed.
+        purpurCheck();
 
         this.playerItems = new HashMap<>();
         this.autoTrashHandler = new AutoTrashHandler(this);
@@ -55,19 +58,6 @@ public final class SaveUtils extends JavaPlugin implements Listener {
             this.getLogger().log(Level.SEVERE, "PlaceholderAPI was not found support has not been enabled.");
             this.getLogger().log(Level.SEVERE, "--------- [SaveUtils] ---------");
         }
-
-
-        try {
-            Class.forName("org.purpurmc.purpur.PurpurConfig");
-        } catch (ClassNotFoundException e) {
-            getLogger().warning("--------- [SaveUtils] ---------");
-            getLogger().warning("You are not running Purpur! Be sure to disable any config options that");
-            getLogger().warning("require purpur or you will encounter errors and or crashes!");
-            getLogger().warning("--------- [SaveUtils] ---------");
-        }
-
-
-        this.playerItems = new HashMap<>();
 
         if (this.getConfig().getBoolean("Settings.enable-announcer")) {
             loadAnnouncer();
@@ -135,10 +125,29 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         reloadConfig();
         langfile.reload();
         if (this.getConfig().getBoolean("Settings.enable-announcer")) {
-            Bukkit.getLogger().log(Level.INFO, "Announcer is being reloaded.");
+            getLogger().info("Announcer is being reloaded.");
             announcements.cancel();
             loadAnnouncer();
         }
     }
 
+    private void purpurCheck() {
+        if (this.getConfig().getBoolean("Settings.enable-purpur-settings", false)) {
+            try {
+                Class.forName("org.purpurmc.purpur.PurpurConfig");
+                getLogger().info("--------- [SaveUtils] ---------");
+                getLogger().info("Detected Purpur now enabling all purpur features...");
+                getLogger().info("--------- [SaveUtils] ---------");
+            } catch (ClassNotFoundException e) {
+                getLogger().warning("--------- [SaveUtils] ---------");
+                getLogger().warning("You are not running Purpur and have options enabled");
+                getLogger().warning("that require it. Forcefully disabling them now.");
+                getLogger().warning("--------- [SaveUtils] ---------");
+                this.getConfig().set("Settings.enable-purpur-settings", false);
+                saveConfig();
+            }
+        }
+
+
+    }
 }

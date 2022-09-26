@@ -28,7 +28,7 @@ public class ChatListener implements Listener {
         event.renderer(new SaveUtilChatRenderer());
     }
 
-    @SuppressWarnings({"CollectionAddAllCanBeReplacedWithConstructor", "ConstantConditions"})
+    @SuppressWarnings({"CollectionAddAllCanBeReplacedWithConstructor", "ConstantConditions", "RedundantCollectionOperation"})
     static class SaveUtilChatRenderer implements ChatRenderer {
 
         SaveUtils plugin = SaveUtils.getPlugin(SaveUtils.class);
