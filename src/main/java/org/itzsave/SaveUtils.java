@@ -48,6 +48,9 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         // Checking if purpur is installed.
         purpurCheck();
 
+        // Load all events.
+        loadModules();
+
         this.playerItems = new HashMap<>();
         this.autoTrashHandler = new AutoTrashHandler(this);
 
@@ -78,16 +81,12 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         }
 
         Stream.of(
-                new PlayerJoinListener(this),
                 new IllegalBookCreationListener(this),
                 new ItemPickupListener(this),
-                new PlayerJoinListener(this),
-                new PlayerLeaveListener(this),
                 new WitherSpawnListener(this),
                 new CustomCommandListener(this),
                 new AntiRaidFarm(this),
                 new BedInteractEvent(this),
-                new SleepPercentageListener(this),
                 new ChatListener()
         ).forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, this));
     }
@@ -147,7 +146,12 @@ public final class SaveUtils extends JavaPlugin implements Listener {
                 saveConfig();
             }
         }
+    }
 
-
+    private void loadModules() {
+        if (this.getConfig().getBoolean("Modules.enable-sleep-listener")) {
+            getLogger().info("[SaveUtils] Loading Sleep Percentage Listener...");
+            Bukkit.getPluginManager().registerEvents(new SleepPercentageListener(this), this);
+        }
     }
 }

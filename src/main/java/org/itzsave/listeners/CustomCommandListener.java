@@ -20,7 +20,7 @@ public class CustomCommandListener implements Listener {
     @EventHandler
     public void onCustomCommand(PlayerCommandPreprocessEvent e) {
         try {
-            Objects.requireNonNull(plugin.getConfig().getConfigurationSection("commands.")).getKeys(false).forEach(
+            Objects.requireNonNull(plugin.getConfig().getConfigurationSection("Custom-Commands.")).getKeys(false).forEach(
                     command -> {
                         if (command.toLowerCase().equalsIgnoreCase(e.getMessage().split(" ")[0].replace("/", ""))) {
                             e.setCancelled(true);

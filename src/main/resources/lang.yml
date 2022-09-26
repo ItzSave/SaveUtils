@@ -47,7 +47,6 @@ Messages:
     - ''
     - '<yellow>You can be punished for anything listed above, be respectful.'
 
-
   #Auto trash messages.
   HELP_PAGE:
     - "<aqua><bold>AutoTrash</bold>"
@@ -67,9 +66,3 @@ Messages:
   NO_PERMISSION: "<red><bold>(!)</bold> <red>You do not have the required permission."
   RELOAD_MESSAGE: "<red><bold>(!)</bold> <red>Config file has been reloaded."
   NOT_VALID_ARG: "<red><bold>(!)</bold> <red>Your sub-command was not found."
-
-
-Event-Messages:
-  join-message: '<green><bold>+ %player%'
-  leave-message: '<red><bold>- %player%'
-

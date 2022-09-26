@@ -45,7 +45,6 @@ public class GrindstoneEnchantListener implements Listener {
             if (!(upperItem.getEnchantments().size() > 0)) {
                 return; // no enchants to extract
             }
-            //enchants = upperItem.getEnchants();
             enchants = upperItem.getEnchantments();
         }
 

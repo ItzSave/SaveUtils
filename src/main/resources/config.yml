@@ -23,12 +23,6 @@ Settings:
   #Enables the automatic announcements.
   enable-announcer: false
 
-  #Disables or enables custom join message.
-  join-message-enabled: false
-
-  #Disables or enables custom leave messages.
-  leave-message-enabled: false
-
   #Time between messages in seconds.
   announcer-interval: 600
 
@@ -41,6 +35,15 @@ Settings:
   # How many seconds must a player wait between starting raids
   # Give the permission `saveutil.raidfarmbypass` to players you wish to bypass this
   raid-cooldown-seconds: 180
+
+Modules:
+  # Enables a message that displays the percentage of users online that are sleeping.
+  enable-sleep-listener: true
+
+#This requires the server to be running Purpur in order to work. https://purpurmc.org/
+Purpur-Settings:
+  #Gives a user an enchantment book of the enchantment(s) removed from the item.
+  give-books-when-grindstone-disenchant: false
 
 # Chat formatting Placeholders:
 # The content of the message is added at the end.
@@ -57,7 +60,7 @@ group-formats:
 #  default: "[Default] {name}: "
 #  admin: "[Admin] {name}: "
 
-commands:
+Custom-Commands:
   #This is the command name. This command for example is /twitter.
   twitter:
     #The message sent when the user runs the commands. Supports PlaceholderAPI
@@ -78,8 +81,3 @@ Announcements:
 #Message sent when /donation is run.
 Donation-Announcement:
   - '<green>%player% has donated at store.itzsave.org'
-
-#This requires the server to be running Purpur in order to work. https://purpurmc.org/
-Purpur-Settings:
-  #Gives a user an enchantment book of the enchantment(s) removed from the item.
-  give-books-when-grindstone-disenchant: false
