@@ -1,4 +1,4 @@
-package org.itzsave.listeners;
+package org.itzsave.handlers;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.event.EventHandler;
@@ -9,11 +9,11 @@ import org.itzsave.SaveUtils;
 import java.util.Objects;
 import java.util.logging.Level;
 
-public class CustomCommandListener implements Listener {
+public class CustomCommandHandler implements Listener {
 
     private final SaveUtils plugin;
 
-    public CustomCommandListener(SaveUtils plugin) {
+    public CustomCommandHandler(SaveUtils plugin) {
         this.plugin = plugin;
     }
 

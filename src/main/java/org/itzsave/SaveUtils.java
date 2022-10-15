@@ -16,6 +16,7 @@ import org.itzsave.commands.RuleCommand;
 import org.itzsave.commands.SaveUtilCommand;
 import org.itzsave.commands.autotrash.AutoTrash;
 import org.itzsave.handlers.AutoTrashHandler;
+import org.itzsave.handlers.CustomCommandHandler;
 import org.itzsave.listeners.*;
 import org.itzsave.tasks.Announcement;
 import org.itzsave.tasks.AntiRaidFarm;
@@ -87,7 +88,7 @@ public final class SaveUtils extends JavaPlugin implements Listener {
                 new IllegalBookCreationListener(this),
                 new ItemPickupListener(this),
                 new WitherSpawnListener(this),
-                new CustomCommandListener(this),
+                new CustomCommandHandler(this),
                 new AntiRaidFarm(this),
                 new BedInteractEvent(this),
                 new ChatListener(),

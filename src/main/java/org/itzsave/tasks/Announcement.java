@@ -67,7 +67,6 @@ public class Announcement implements Listener {
 
     public Announcement(String key) {
         ConfigurationSection sec = plugin.getConfig().getConfigurationSection("Announcements." + key);
-        //noinspection ConstantConditions
         msg = sec.getStringList("Message");
     }
 
