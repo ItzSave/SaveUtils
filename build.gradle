@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'org.itzsave'
-version = '2.0-ALPHA'
+version = '2.0.2-ALPHA'
 
 compileJava {
     options.compilerArgs += ['-parameters']
@@ -22,11 +22,10 @@ dependencies {
     compileOnly("org.purpurmc.purpur:purpur-api:1.19.2-R0.1-SNAPSHOT")
     compileOnly('me.clip:placeholderapi:2.11.2')
     compileOnly("net.luckperms:api:5.4")
-    compileOnly('me.mattstudios.utils:matt-framework:1.4.6')
+    implementation('me.mattstudios.utils:matt-framework:1.4.6')
 }
 
 shadowJar {
     minimize()
-    classifier(null)
-    relocate 'me.mattstudios.mf', 'org.itzsave.utils.commands'
+    relocate 'me.mattstudios.mf', 'org.itzsave.utils'
 }

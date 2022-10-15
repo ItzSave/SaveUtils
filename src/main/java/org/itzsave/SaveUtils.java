@@ -1,5 +1,6 @@
 package org.itzsave;
 
+import me.mattstudios.mf.base.CommandManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.luckperms.api.LuckPerms;
@@ -69,13 +70,15 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         langfile = new ConfigManager(this, "lang");
         langfile.saveDefaultConfig();
 
+        CommandManager cm = new CommandManager(this);
+        cm.register(new AutoTrash(this));
+
         this.registerCommand("saveutil", new SaveUtilCommand(this));
         this.registerCommand("rules", new RuleCommand());
         this.registerCommand("nightvision", new NightvisionCommand());
         this.registerCommand("donation", new DonationCommand(this));
-        this.registerCommand("autotrash", new AutoTrash(this));
 
-        if (this.getConfig().getBoolean("Purpur-Settings.give-books-when-grindstone-disenchant")) {
+        if (this.getConfig().getBoolean("Purpur-Settings.give-books-when-grindstone-disenchant", false)) {
             Bukkit.getPluginManager().registerEvents(new GrindstoneEnchantListener(), this);
             Bukkit.getLogger().log(Level.INFO, "[SaveUtils] Loading GrindstoneDisenchantmentListener.");
         }
@@ -87,7 +90,8 @@ public final class SaveUtils extends JavaPlugin implements Listener {
                 new CustomCommandListener(this),
                 new AntiRaidFarm(this),
                 new BedInteractEvent(this),
-                new ChatListener()
+                new ChatListener(),
+                new PlayerListener()
         ).forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, this));
     }
 
@@ -149,7 +153,7 @@ public final class SaveUtils extends JavaPlugin implements Listener {
     }
 
     private void loadModules() {
-        if (this.getConfig().getBoolean("Modules.enable-sleep-listener")) {
+        if (this.getConfig().getBoolean("Modules.enable-sleep-listener", false)) {
             getLogger().info("[SaveUtils] Loading Sleep Percentage Listener...");
             Bukkit.getPluginManager().registerEvents(new SleepPercentageListener(this), this);
         }

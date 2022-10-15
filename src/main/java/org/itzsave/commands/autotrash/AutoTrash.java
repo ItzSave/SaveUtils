@@ -1,75 +1,77 @@
 package org.itzsave.commands.autotrash;
 
+import me.mattstudios.mf.annotations.*;
+import me.mattstudios.mf.base.CommandBase;
+
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.itzsave.SaveUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-@SuppressWarnings("ConstantConditions")
-public class AutoTrash implements CommandExecutor {
+
+@SuppressWarnings({"FieldCanBeLocal", "unused"})
+@Command("autotrash")
+public class AutoTrash extends CommandBase {
 
     private final SaveUtils plugin;
-
 
     public AutoTrash(SaveUtils plugin) {
         this.plugin = plugin;
 
     }
 
-    public boolean onCommand(@NotNull CommandSender cs, @NotNull Command c, @NotNull String s, String[] args) {
-        if (cs instanceof Player p) {
-            if (p.hasPermission("autotrash.use") || p.hasPermission("autotrash.admin"))
-                if (args.length == 0) {
-                    for (String line : this.plugin.getLangFile().getStringList("Messages.HELP_PAGE"))
-                        p.sendMessage(SaveUtils.color(line));
-                } else if (args[0].equalsIgnoreCase("add")) {
-                    if (args.length == 2) {
-                        Material item = Material.getMaterial(args[1].toUpperCase());
-                        if (item == null) {
-                            p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.NOT_VALID_ITEM")));
-                        } else {
-                            plugin.getAutoTrashHandler().addAutoTrashItem(p, item);
-                            p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.ITEM_ADD_SUCCESS").replace("%item%", item.name())));
-                        }
-                    } else {
-                        p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.NOT_ENOUGH_ARGS")));
-                    }
-                } else if (args[0].equalsIgnoreCase("remove")) {
-                    if (args.length == 2) {
-                        Material item = Material.getMaterial(args[1].toUpperCase());
-                        if (item == null) {
-                            p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.NOT_VALID_ITEM")));
-                        } else {
-                            plugin.getAutoTrashHandler().remAutoTrashItem(p, item);
-                            p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.ITEM_REM_SUCCESS").replace("%item%", item.name())));
-                        }
-                    } else {
-                        p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.NOT_ENOUGH_ARGS")));
-                    }
-                } else if (args[0].equalsIgnoreCase("list")) {
-                    if (plugin.getAutoTrashHandler().getTrashItems(p) == null) {
-                        p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.TRASH_LIST_EMPTY")));
-                        return false;
-                    }
-                    List<String> items = new ArrayList<>(Objects.requireNonNull(plugin.getAutoTrashHandler().getTrashItems(p)));
-                    String pl = String.join(", ", items);
-                    p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.TRASH_LIST_FORMAT").replace("%trashlist%", pl)));
-                } else if (args[0].equalsIgnoreCase("reset")) {
-                    plugin.getAutoTrashHandler().resetTrashItems(p);
-                    p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.TRASH_LIST_RESET")));
-                } else {
-                    p.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.NOT_VALID_ARG")));
-                }
-            return false;
+    @Default
+    @Permission("saveutils.autotrash")
+    public void execute(CommandSender sender) {
+        Player p = (Player) sender;
+        if (sender == null) return;
+
+        for (String line : this.plugin.getLangFile().getStringList("Messages.HELP_AGE")) {
+            p.sendMessage(SaveUtils.color(line));
         }
-        cs.sendMessage("[AutoTrash] You cannot use this command from the console.");
-        return false;
+    }
+
+    @SubCommand("add")
+    public void addItem(CommandSender sender, String[] args) {
+        Material item = Material.getMaterial(args[1].toUpperCase());
+        Player player = (Player) sender;
+        if (item == null) {
+            sender.sendMessage(SaveUtils.color(plugin.getLangFile().getString("Messages.NOT_VALID_ITEM")));
+        } else {
+            plugin.getAutoTrashHandler().addAutoTrashItem(player, item);
+            sender.sendMessage(SaveUtils.color(plugin.getLangFile().getString("Messages.ITEM_ADD_SUCCESS").replace("%item%", item.name())));
+        }
+    }
+
+    @SubCommand("remove")
+    public void removeItem(CommandSender sender, String[] args) {
+        Material item = Material.getMaterial(args[1].toUpperCase());
+        Player player = (Player) sender;
+        if (item == null) {
+            sender.sendMessage(SaveUtils.color(plugin.getLangFile().getString("Messages.NOT_VALID_ITEM")));
+        } else {
+            plugin.getAutoTrashHandler().remAutoTrashItem(player, item);
+            sender.sendMessage(SaveUtils.color(plugin.getLangFile().getString("Messages.ITEM_REM_SUCCESS").replace("%item%", item.name())));
+        }
+    }
+
+    @SubCommand("reset")
+    public void resetItems(CommandSender sender, String[] args) {
+        plugin.getAutoTrashHandler().resetTrashItems((Player) sender);
+        sender.sendMessage(SaveUtils.color(plugin.getLangFile().getString("Messages.TRASH_LIST_RESET")));
+    }
+
+    @SubCommand("list")
+    public void listItems(CommandSender sender, String[] args) {
+        if (plugin.getAutoTrashHandler().getTrashItems((Player) sender) == null) {
+            sender.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.TRASH_LIST_EMPTY")));
+        } else {
+            List<String> items = new ArrayList<>(plugin.getAutoTrashHandler().getTrashItems((Player) sender));
+            String pl = String.join(", ", items);
+            sender.sendMessage(SaveUtils.color(plugin.getLangFile().getString("Messages.TRASH_LIST_FORMAT").replace("%trashlist%", pl)));
+        }
     }
 }

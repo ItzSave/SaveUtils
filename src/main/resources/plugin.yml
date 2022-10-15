@@ -4,7 +4,7 @@ main: org.itzsave.SaveUtils
 api-version: 1.19
 softdepend: [ PlaceholderAPI, LuckPerms ]
 authors: [ ItzSave ]
-description: Simple ultily plugin to add random features/adjustments.
+description: Simple utility plugin to add various features/adjustments.
 
 commands:
   saveutil:
@@ -16,9 +16,6 @@ commands:
     aliases: [ rule ]
   donation:
     description: Used to send a configured message when a user donates.
-  autotrash:
-    aliases: [ at ]
-    description: Access to the auto trash system
 
 permissions:
   saveutil.admin:

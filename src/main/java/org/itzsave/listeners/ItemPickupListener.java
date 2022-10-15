@@ -19,7 +19,6 @@ public class ItemPickupListener implements Listener {
         this.plugin = plugin;
     }
 
-
     @EventHandler
     public void itemPickup(EntityPickupItemEvent e) {
         Entity entity = e.getEntity();

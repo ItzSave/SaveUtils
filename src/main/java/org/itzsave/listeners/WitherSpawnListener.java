@@ -11,7 +11,7 @@ public record WitherSpawnListener(SaveUtils plugin) implements Listener {
 
     @EventHandler
     public void witherSpawn(EntitySpawnEvent e) {
-        if (plugin.getConfig().getBoolean("Settings.disable-wither-spawns")) {
+        if (plugin.getConfig().getBoolean("Settings.disable-wither-spawns", false)) {
             if (e.getEntityType().equals(EntityType.WITHER)) {
                 e.setCancelled(true);
             }

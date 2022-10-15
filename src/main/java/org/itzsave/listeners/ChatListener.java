@@ -53,7 +53,5 @@ public class ChatListener implements Listener {
             return MiniMessage.miniMessage().deserialize(format + "<message>", TagResolver.resolver(resolverList));
         }
     }
-
-
 }
 

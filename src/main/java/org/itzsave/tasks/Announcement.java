@@ -38,6 +38,7 @@ public class Announcement implements Listener {
     public void register() {
         task = new BukkitRunnable() {
 
+
             @Override
             public void run() {
                 if (announcement > announcementIntegerMap.size() - 1) {
