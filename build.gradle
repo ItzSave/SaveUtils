@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'org.itzsave'
-version = '2.0.3-ALPHA'
+version = '2.0.4-ALPHA'
 
 compileJava {
     options.compilerArgs += ['-parameters']
@@ -29,4 +29,12 @@ shadowJar {
     minimize()
     classifier = null
     relocate 'me.mattstudios.mf', 'org.itzsave.utils'
+}
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
 }

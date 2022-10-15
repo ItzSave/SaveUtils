@@ -6,17 +6,16 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.itzsave.commands.DonationCommand;
 import org.itzsave.commands.NightvisionCommand;
-import org.itzsave.commands.RuleCommand;
 import org.itzsave.commands.SaveUtilCommand;
 import org.itzsave.commands.autotrash.AutoTrash;
 import org.itzsave.handlers.AutoTrashHandler;
 import org.itzsave.handlers.CustomCommandHandler;
+import org.itzsave.handlers.PlaceholderHandler;
 import org.itzsave.listeners.*;
 import org.itzsave.tasks.Announcement;
 import org.itzsave.tasks.AntiRaidFarm;
@@ -25,7 +24,6 @@ import org.itzsave.utils.ConfigManager;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
 import java.util.stream.Stream;
 
 public final class SaveUtils extends JavaPlugin implements Listener {
@@ -41,6 +39,9 @@ public final class SaveUtils extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        getLogger().warning("--------- [SaveUtils] ---------");
+        getLogger().info("Loading SaveUtils... v" + this.getDescription().getVersion());
+
 
         // Load luckperms
         this.luckPerms = getServer().getServicesManager().load(LuckPerms.class);
@@ -56,12 +57,15 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         this.playerItems = new HashMap<>();
         this.autoTrashHandler = new AutoTrashHandler(this);
 
+        // Checking if PlaceholderAPI is installed.
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            this.getLogger().log(Level.INFO, "PlaceholderAPI has been loaded support has been enabled.");
+            getLogger().warning("PlaceholderAPI has located enabling placeholders...");
+            new PlaceholderHandler().register();
+            getLogger().info("Loaded PlaceholderAPI placeholders.");
         } else {
-            this.getLogger().log(Level.SEVERE, "--------- [SaveUtils] ---------");
-            this.getLogger().log(Level.SEVERE, "PlaceholderAPI was not found support has not been enabled.");
-            this.getLogger().log(Level.SEVERE, "--------- [SaveUtils] ---------");
+            getLogger().severe("--------- [SaveUtils] ---------");
+            getLogger().severe("PlaceholderAPI was not found support has not been enabled.");
+            getLogger().severe("--------- [SaveUtils] ---------");
         }
 
         if (this.getConfig().getBoolean("Settings.enable-announcer")) {
@@ -72,39 +76,37 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         langfile.saveDefaultConfig();
 
         CommandManager cm = new CommandManager(this);
-        cm.register(new AutoTrash(this));
-
-        this.registerCommand("saveutil", new SaveUtilCommand(this));
-        this.registerCommand("rules", new RuleCommand());
-        this.registerCommand("nightvision", new NightvisionCommand());
-        this.registerCommand("donation", new DonationCommand(this));
+        cm.register(new AutoTrash(this),
+                new SaveUtilCommand(this),
+                new NightvisionCommand(this),
+                new DonationCommand(this));
 
         if (this.getConfig().getBoolean("Purpur-Settings.give-books-when-grindstone-disenchant", false)) {
             Bukkit.getPluginManager().registerEvents(new GrindstoneEnchantListener(), this);
-            Bukkit.getLogger().log(Level.INFO, "[SaveUtils] Loading GrindstoneDisenchantmentListener.");
+            getLogger().info("[SaveUtils] Loading GrindstoneDisenchantmentListener.");
+        }
+
+        if (this.getConfig().getBoolean("Settings.custom-commands-enabled")) {
+            Bukkit.getPluginManager().registerEvents(new CustomCommandHandler(this), this);
+            getLogger().info("Enabling custom command handler!");
         }
 
         Stream.of(
                 new IllegalBookCreationListener(this),
                 new ItemPickupListener(this),
                 new WitherSpawnListener(this),
-                new CustomCommandHandler(this),
                 new AntiRaidFarm(this),
                 new BedInteractEvent(this),
                 new ChatListener(),
                 new PlayerListener()
         ).forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, this));
+        getLogger().info(" ");
+        getLogger().warning("--------- [SaveUtils] ---------");
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-    }
-
-
-    private void registerCommand(String name, CommandExecutor executor) {
-        //noinspection ConstantConditions
-        (this.getCommand(name)).setExecutor(executor);
     }
 
     public FileConfiguration getLangFile() {

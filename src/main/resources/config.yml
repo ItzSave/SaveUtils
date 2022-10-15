@@ -2,18 +2,21 @@
 # SaveUtils
 # Developed by Save#5636
 #
+# Placeholders:
+# %saveutils_exp% - Returns formatted experience.
+#
 # Permissions
 # saveutil.nightvision - Gives access to /nightvision
 # saveutil.admin - Gives access to admin functions such as /reload.
 # saveutil.raidfarmbypass - Allows users to bypass raid farm cooldown
-# autotrash.use - Allows users to use the autotrash features,
+# saveutils.autotrash - Allows users to use the autotrash features,
 
 Settings:
   # Enables the purpur config options found below.
   # WARNING: You must be running purpur, or you will have errors or crashes.
   enable-purpur-settings: false
 
-  #Disables or enables the custom commands located at the top of this file.
+  # Enable or disable the ability to define custom commands.
   custom-commands-enabled: true
 
   #Sends a configurable message when a user tries to enter a bed.

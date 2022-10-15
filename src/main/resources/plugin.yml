@@ -6,25 +6,8 @@ softdepend: [ PlaceholderAPI, LuckPerms ]
 authors: [ ItzSave ]
 description: Simple utility plugin to add various features/adjustments.
 
-commands:
-  saveutil:
-    description: Main command.
-  nightvision:
-    description: Enables or disables a users nightvision effect.
-  rules:
-    description: Displays a list of rules.
-    aliases: [ rule ]
-  donation:
-    description: Used to send a configured message when a user donates.
-
 permissions:
-  saveutil.admin:
-    description: Access to all admin related commands & features.
-  saveutil.nightvision:
-    description: Gives access to /nightvision.
   saveutil.slient:
     description: Allows users to join sliently.
-  saveutils.autotrash:
-    description: Allows users to access the auto trash feature.
   saveutil.raidfarmbypass:
     description: Allows users to disable raid farm cooldown.

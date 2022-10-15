@@ -1,13 +1,12 @@
 package org.itzsave.handlers;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.itzsave.SaveUtils;
-
-import java.util.Objects;
-import java.util.logging.Level;
 
 public class CustomCommandHandler implements Listener {
 
@@ -17,19 +16,20 @@ public class CustomCommandHandler implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler
-    public void onCustomCommand(PlayerCommandPreprocessEvent e) {
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onCustomCommand(PlayerCommandPreprocessEvent event) {
         try {
-            Objects.requireNonNull(plugin.getConfig().getConfigurationSection("Custom-Commands.")).getKeys(false).forEach(
+            plugin.getConfig().getConfigurationSection("Custom-Commands.").getKeys(false).forEach(
                     command -> {
-                        if (command.toLowerCase().equalsIgnoreCase(e.getMessage().split(" ")[0].replace("/", ""))) {
-                            e.setCancelled(true);
-                            plugin.getConfig().getStringList("commands." + command + ".message").forEach(line -> e.getPlayer().sendMessage(SaveUtils.color(PlaceholderAPI.setPlaceholders(e.getPlayer(), (line)))));
+                        if (command.toLowerCase().equalsIgnoreCase(event.getMessage().split(" ")[0].replace("/", ""))) {
+                            Player p = event.getPlayer();
+                            event.setCancelled(true);
+                            plugin.getConfig().getStringList("Custom-Commands." + command + ".message").forEach(line -> p.sendMessage(SaveUtils.color(PlaceholderAPI.setPlaceholders(p, (line)))));
                         }
                     }
             );
         } catch (NullPointerException ex) {
-            plugin.getLogger().log(Level.WARNING, "Configuration path \"commands\" is null ");
+            plugin.getLogger().warning("Configuration path \"commands\" is null ");
         }
 
     }
