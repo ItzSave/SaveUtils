@@ -41,7 +41,7 @@ public class ChatListener implements Listener {
             final CachedMetaData metaData = plugin.luckPerms.getPlayerAdapter(Player.class).getMetaData(source);
             final String group = metaData.getPrimaryGroup();
 
-            @Nullable String format = plugin.getConfig().getString(plugin.getConfig().getString("group-formats." + group) != null ? "group-formats." + group : "chat-format")
+            @Nullable String format = plugin.getConfig().getString(plugin.getConfig().getString("Chat-Formats.group-formats." + group) != null ? "Chat-Formats.group-formats." + group : "Chat-Formats.default")
                     .replace("{prefix}", metaData.getPrefix() != null ? metaData.getPrefix() : "")
                     .replace("{suffix}", metaData.getSuffix() != null ? metaData.getSuffix() : "")
                     .replace("{name}", source.getName());

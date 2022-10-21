@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 public class PlaceholderHandler extends PlaceholderExpansion {
     @Override
     public @NotNull String getIdentifier() {
-        return "saveutils";
+        return "SaveUtils";
     }
 
     @Override

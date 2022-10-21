@@ -28,9 +28,6 @@ Settings:
   #Time between messages in seconds.
   announcer-interval: 600
 
-  #Disables wither spawning.
-  disable-wither-spawns: true
-
   #Enables or disables raid farms.
   anti-raid-farm: false
 
@@ -45,6 +42,9 @@ Modules:
   # Disable phantom spawning.
   disable-phantom-spawning: true
 
+  # Disable wither spawning
+  disable-wither-spawning: true
+
 #This requires the server to be running Purpur in order to work. https://purpurmc.org/
 Purpur-Settings:
   #Gives a user an enchantment book of the enchantment(s) removed from the item.
@@ -58,12 +58,13 @@ Purpur-Settings:
 # {prefix} - the player's highest priority prefix
 # {suffix} - the player's highest priority suffix
 #
-chat-format: "{prefix}{name}: "
+Chat-Formats:
+  default: "{prefix}{name}: "
 
-# Set the format per group.
-group-formats:
-#  default: "[Default] {name}: "
-#  admin: "[Admin] {name}: "
+  # Set the format per group.
+  group-formats:
+  #  default: "[Default] {name}: "
+  #  admin: "[Admin] {name}: "
 
 Custom-Commands:
   #This is the command name. This command for example is /twitter.

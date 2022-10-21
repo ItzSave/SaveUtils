@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'org.itzsave'
-version = '2.0.5-ALPHA'
+version = '2.0.6-ALPHA'
 
 compileJava {
     options.compilerArgs += ['-parameters']

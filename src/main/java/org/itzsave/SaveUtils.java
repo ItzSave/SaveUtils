@@ -40,7 +40,6 @@ public final class SaveUtils extends JavaPlugin implements Listener {
     public void onEnable() {
         // Plugin startup logic
         getLogger().warning("--------- [SaveUtils] ---------");
-        getLogger().info("Loading SaveUtils... v" + this.getDescription().getVersion());
 
         saveDefaultConfig();
 
@@ -56,6 +55,8 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         // Loading all modules.
         loadModules();
 
+        Bukkit.getPluginManager().registerEvents(new EntityListener(this), this);
+
         CommandManager cm = new CommandManager(this);
         cm.register(new AutoTrashCommand(this),
                 new SaveUtilCommand(this),
@@ -65,7 +66,6 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         Stream.of(
                 new IllegalBookCreationListener(this),
                 new ItemPickupListener(this),
-                new WitherSpawnListener(this),
                 new AntiRaidFarm(this),
                 new BedInteractEvent(this),
                 new PlayerListener()
@@ -75,16 +75,16 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         if (Bukkit.getPluginManager().getPlugin("LuckPerms") != null) {
             Bukkit.getPluginManager().registerEvents(new ChatListener(), this);
             this.luckPerms = getServer().getServicesManager().load(LuckPerms.class);
-            getLogger().info("LuckPerms was located now loading!");
+            getLogger().info("[Module] Loading chat formatting module.");
         } else {
             getLogger().severe("WARNING: LuckPerms has not found! Please install it to enable chat formatting.");
         }
 
         // Checking if PlaceholderAPI is installed.
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            getLogger().warning("PlaceholderAPI has located enabling placeholders...");
             new PlaceholderHandler().register();
-            getLogger().info("Loaded PlaceholderAPI placeholders.");
+            getLogger().info("[Module] Loading internal PlaceholderAPI placeholders.");
+            getLogger().info("[Module] Loading PlaceholderAPI message support.");
         } else {
             getLogger().severe("WARNING: PlaceholderAPI was not found support has not been enabled.");
         }
@@ -146,28 +146,23 @@ public final class SaveUtils extends JavaPlugin implements Listener {
 
     private void loadModules() {
         if (this.getConfig().getBoolean("Modules.enable-sleep-listener", false)) {
-            getLogger().info("[Module] Loading Sleep Percentage Listener.");
+            getLogger().info("[Module] Loading sleep listener module.");
             Bukkit.getPluginManager().registerEvents(new SleepPercentageListener(this), this);
-        }
-
-        if (this.getConfig().getBoolean("Modules.disable-phantom-spawning", true)) {
-            getLogger().info("[Module] Disabling phantom spawning.");
-            Bukkit.getPluginManager().registerEvents(new PhantomListener(), this);
         }
 
         if (this.getConfig().getBoolean("Purpur-Settings.give-books-when-grindstone-disenchant", false)) {
             Bukkit.getPluginManager().registerEvents(new GrindstoneEnchantListener(), this);
-            getLogger().info("[Module] Loading GrindstoneDisenchantmentListener.");
+            getLogger().info("[Module] Enabling grindstone disenchantment module.");
         }
 
         if (this.getConfig().getBoolean("Settings.custom-commands-enabled", true)) {
             Bukkit.getPluginManager().registerEvents(new CustomCommandHandler(this), this);
-            getLogger().info("[Module] Enabling custom command handler.");
+            getLogger().info("[Module] Loading custom commands module.");
         }
 
         if (this.getConfig().getBoolean("Settings.enable-announcer", true)) {
             loadAnnouncer();
-            getLogger().info("[Module] Enabling automatic announcements.");
+            getLogger().info("[Module] Loading auto announcer module.");
         }
 
     }
