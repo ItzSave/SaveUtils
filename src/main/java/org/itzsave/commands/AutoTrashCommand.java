@@ -1,4 +1,4 @@
-package org.itzsave.commands.autotrash;
+package org.itzsave.commands;
 
 import me.mattstudios.mf.annotations.*;
 import me.mattstudios.mf.base.CommandBase;
@@ -14,11 +14,11 @@ import java.util.List;
 
 @SuppressWarnings({"FieldCanBeLocal", "unused"})
 @Command("autotrash")
-public class AutoTrash extends CommandBase {
+public class AutoTrashCommand extends CommandBase {
 
     private final SaveUtils plugin;
 
-    public AutoTrash(SaveUtils plugin) {
+    public AutoTrashCommand(SaveUtils plugin) {
         this.plugin = plugin;
 
     }

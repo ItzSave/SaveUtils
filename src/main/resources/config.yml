@@ -42,6 +42,9 @@ Modules:
   # Enables a message that displays the percentage of users online that are sleeping.
   enable-sleep-listener: true
 
+  # Disable phantom spawning.
+  disable-phantom-spawning: true
+
 #This requires the server to be running Purpur in order to work. https://purpurmc.org/
 Purpur-Settings:
   #Gives a user an enchantment book of the enchantment(s) removed from the item.

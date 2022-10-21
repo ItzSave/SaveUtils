@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.itzsave.commands.DonationCommand;
 import org.itzsave.commands.NightvisionCommand;
 import org.itzsave.commands.SaveUtilCommand;
-import org.itzsave.commands.autotrash.AutoTrash;
+import org.itzsave.commands.AutoTrashCommand;
 import org.itzsave.handlers.AutoTrashHandler;
 import org.itzsave.handlers.CustomCommandHandler;
 import org.itzsave.handlers.PlaceholderHandler;
@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 
 public final class SaveUtils extends JavaPlugin implements Listener {
 
-    private ConfigManager langfile;
+    private ConfigManager langFile;
     private Announcement announcements;
     public LuckPerms luckPerms;
 
@@ -42,54 +42,25 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         getLogger().warning("--------- [SaveUtils] ---------");
         getLogger().info("Loading SaveUtils... v" + this.getDescription().getVersion());
 
-
-        // Load luckperms
-        this.luckPerms = getServer().getServicesManager().load(LuckPerms.class);
-
         saveDefaultConfig();
 
         // Checking if purpur is installed.
         purpurCheck();
 
-        // Load all events.
-        loadModules();
-
         this.playerItems = new HashMap<>();
         this.autoTrashHandler = new AutoTrashHandler(this);
 
-        // Checking if PlaceholderAPI is installed.
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            getLogger().warning("PlaceholderAPI has located enabling placeholders...");
-            new PlaceholderHandler().register();
-            getLogger().info("Loaded PlaceholderAPI placeholders.");
-        } else {
-            getLogger().severe("--------- [SaveUtils] ---------");
-            getLogger().severe("PlaceholderAPI was not found support has not been enabled.");
-            getLogger().severe("--------- [SaveUtils] ---------");
-        }
+        langFile = new ConfigManager(this, "lang");
+        langFile.saveDefaultConfig();
 
-        if (this.getConfig().getBoolean("Settings.enable-announcer")) {
-            loadAnnouncer();
-        }
-
-        langfile = new ConfigManager(this, "lang");
-        langfile.saveDefaultConfig();
+        // Loading all modules.
+        loadModules();
 
         CommandManager cm = new CommandManager(this);
-        cm.register(new AutoTrash(this),
+        cm.register(new AutoTrashCommand(this),
                 new SaveUtilCommand(this),
                 new NightvisionCommand(this),
                 new DonationCommand(this));
-
-        if (this.getConfig().getBoolean("Purpur-Settings.give-books-when-grindstone-disenchant", false)) {
-            Bukkit.getPluginManager().registerEvents(new GrindstoneEnchantListener(), this);
-            getLogger().info("[SaveUtils] Loading GrindstoneDisenchantmentListener.");
-        }
-
-        if (this.getConfig().getBoolean("Settings.custom-commands-enabled")) {
-            Bukkit.getPluginManager().registerEvents(new CustomCommandHandler(this), this);
-            getLogger().info("Enabling custom command handler!");
-        }
 
         Stream.of(
                 new IllegalBookCreationListener(this),
@@ -97,10 +68,26 @@ public final class SaveUtils extends JavaPlugin implements Listener {
                 new WitherSpawnListener(this),
                 new AntiRaidFarm(this),
                 new BedInteractEvent(this),
-                new ChatListener(),
                 new PlayerListener()
         ).forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, this));
-        getLogger().info(" ");
+
+        // Checking if luckperms is installed before loading the chat module
+        if (Bukkit.getPluginManager().getPlugin("LuckPerms") != null) {
+            Bukkit.getPluginManager().registerEvents(new ChatListener(), this);
+            this.luckPerms = getServer().getServicesManager().load(LuckPerms.class);
+            getLogger().info("LuckPerms was located now loading!");
+        } else {
+            getLogger().severe("WARNING: LuckPerms has not found! Please install it to enable chat formatting.");
+        }
+
+        // Checking if PlaceholderAPI is installed.
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            getLogger().warning("PlaceholderAPI has located enabling placeholders...");
+            new PlaceholderHandler().register();
+            getLogger().info("Loaded PlaceholderAPI placeholders.");
+        } else {
+            getLogger().severe("WARNING: PlaceholderAPI was not found support has not been enabled.");
+        }
         getLogger().warning("--------- [SaveUtils] ---------");
     }
 
@@ -110,7 +97,7 @@ public final class SaveUtils extends JavaPlugin implements Listener {
     }
 
     public FileConfiguration getLangFile() {
-        return langfile.getConfig();
+        return langFile.getConfig();
     }
 
     public static Component color(String message) {
@@ -129,11 +116,12 @@ public final class SaveUtils extends JavaPlugin implements Listener {
     //Reload handler
     public void onReload() {
         reloadConfig();
-        langfile.reload();
+        langFile.reload();
         if (this.getConfig().getBoolean("Settings.enable-announcer")) {
-            getLogger().info("Announcer is being reloaded.");
+            getLogger().warning("Announcer is being reloaded.");
             announcements.cancel();
             loadAnnouncer();
+            getLogger().info("Announcer has been reloaded");
         }
     }
 
@@ -142,7 +130,7 @@ public final class SaveUtils extends JavaPlugin implements Listener {
             try {
                 Class.forName("org.purpurmc.purpur.PurpurConfig");
                 getLogger().info("--------- [SaveUtils] ---------");
-                getLogger().info("Detected Purpur now enabling all purpur features...");
+                getLogger().info("Detected Purpur now enabling all purpur features");
                 getLogger().info("--------- [SaveUtils] ---------");
             } catch (ClassNotFoundException e) {
                 getLogger().warning("--------- [SaveUtils] ---------");
@@ -155,10 +143,32 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         }
     }
 
+
     private void loadModules() {
         if (this.getConfig().getBoolean("Modules.enable-sleep-listener", false)) {
-            getLogger().info("[SaveUtils] Loading Sleep Percentage Listener...");
+            getLogger().info("[Module] Loading Sleep Percentage Listener.");
             Bukkit.getPluginManager().registerEvents(new SleepPercentageListener(this), this);
         }
+
+        if (this.getConfig().getBoolean("Modules.disable-phantom-spawning", true)) {
+            getLogger().info("[Module] Disabling phantom spawning.");
+            Bukkit.getPluginManager().registerEvents(new PhantomListener(), this);
+        }
+
+        if (this.getConfig().getBoolean("Purpur-Settings.give-books-when-grindstone-disenchant", false)) {
+            Bukkit.getPluginManager().registerEvents(new GrindstoneEnchantListener(), this);
+            getLogger().info("[Module] Loading GrindstoneDisenchantmentListener.");
+        }
+
+        if (this.getConfig().getBoolean("Settings.custom-commands-enabled", true)) {
+            Bukkit.getPluginManager().registerEvents(new CustomCommandHandler(this), this);
+            getLogger().info("[Module] Enabling custom command handler.");
+        }
+
+        if (this.getConfig().getBoolean("Settings.enable-announcer", true)) {
+            loadAnnouncer();
+            getLogger().info("[Module] Enabling automatic announcements.");
+        }
+
     }
 }
