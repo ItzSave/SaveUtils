@@ -9,10 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.itzsave.commands.DonationCommand;
-import org.itzsave.commands.NightvisionCommand;
-import org.itzsave.commands.SaveUtilCommand;
-import org.itzsave.commands.AutoTrashCommand;
+import org.itzsave.commands.*;
 import org.itzsave.handlers.AutoTrashHandler;
 import org.itzsave.handlers.CustomCommandHandler;
 import org.itzsave.handlers.PlaceholderHandler;
@@ -20,6 +17,7 @@ import org.itzsave.listeners.*;
 import org.itzsave.tasks.Announcement;
 import org.itzsave.tasks.AntiRaidFarm;
 import org.itzsave.utils.ConfigManager;
+import org.itzsave.utils.Messages;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,26 +56,33 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new EntityListener(this), this);
 
         CommandManager cm = new CommandManager(this);
+        cm.getMessageHandler().register("cmd.no.permission", Messages.NO_PERMISSION::send);
+        cm.getMessageHandler().register("cmd.no.console", Messages.NO_CONSOLE::send);
         cm.register(new AutoTrashCommand(this),
                 new SaveUtilCommand(this),
-                new NightvisionCommand(this),
+                new NightvisionCommand(),
+                new RuleCommand(),
                 new DonationCommand(this));
 
         Stream.of(
-                new IllegalBookCreationListener(this),
+                new IllegalBookCreationListener(),
                 new ItemPickupListener(this),
                 new AntiRaidFarm(this),
-                new BedInteractEvent(this),
+                new BedInteractEvent(),
                 new PlayerListener()
         ).forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, this));
 
         // Checking if luckperms is installed before loading the chat module
         if (Bukkit.getPluginManager().getPlugin("LuckPerms") != null) {
-            Bukkit.getPluginManager().registerEvents(new ChatListener(), this);
-            this.luckPerms = getServer().getServicesManager().load(LuckPerms.class);
-            getLogger().info("[Module] Loading chat formatting module.");
+            if (this.getConfig().getBoolean("Modules.enable-chat-formatting")) {
+                Bukkit.getPluginManager().registerEvents(new ChatListener(), this);
+                this.luckPerms = getServer().getServicesManager().load(LuckPerms.class);
+                getLogger().info("[Module] Loading chat formatting module.");
+            }
         } else {
             getLogger().severe("WARNING: LuckPerms has not found! Please install it to enable chat formatting.");
+            getConfig().set("Modules.enable-chat-formatting", false);
+            saveConfig();
         }
 
         // Checking if PlaceholderAPI is installed.
@@ -117,7 +122,12 @@ public final class SaveUtils extends JavaPlugin implements Listener {
     public void onReload() {
         reloadConfig();
         langFile.reload();
-        if (this.getConfig().getBoolean("Settings.enable-announcer")) {
+
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new PlaceholderHandler().register();
+        }
+
+        if (this.getConfig().getBoolean("Modules.enable-announcer")) {
             getLogger().warning("Announcer is being reloaded.");
             announcements.cancel();
             loadAnnouncer();
@@ -126,7 +136,7 @@ public final class SaveUtils extends JavaPlugin implements Listener {
     }
 
     private void purpurCheck() {
-        if (this.getConfig().getBoolean("Settings.enable-purpur-settings", false)) {
+        if (getConfig().getBoolean("Modules.enable-purpur-settings", false)) {
             try {
                 Class.forName("org.purpurmc.purpur.PurpurConfig");
                 getLogger().info("--------- [SaveUtils] ---------");
@@ -137,7 +147,7 @@ public final class SaveUtils extends JavaPlugin implements Listener {
                 getLogger().warning("You are not running Purpur and have options enabled");
                 getLogger().warning("that require it. Forcefully disabling them now.");
                 getLogger().warning("--------- [SaveUtils] ---------");
-                this.getConfig().set("Settings.enable-purpur-settings", false);
+                getConfig().set("Modules.enable-purpur-settings", false);
                 saveConfig();
             }
         }
@@ -155,12 +165,12 @@ public final class SaveUtils extends JavaPlugin implements Listener {
             getLogger().info("[Module] Enabling grindstone disenchantment module.");
         }
 
-        if (this.getConfig().getBoolean("Settings.custom-commands-enabled", true)) {
-            Bukkit.getPluginManager().registerEvents(new CustomCommandHandler(this), this);
+        if (this.getConfig().getBoolean("Modules.custom-commands-enabled", true)) {
+            Bukkit.getPluginManager().registerEvents(new CustomCommandHandler(), this);
             getLogger().info("[Module] Loading custom commands module.");
         }
 
-        if (this.getConfig().getBoolean("Settings.enable-announcer", true)) {
+        if (this.getConfig().getBoolean("Modules.enable-announcer", true)) {
             loadAnnouncer();
             getLogger().info("[Module] Loading auto announcer module.");
         }

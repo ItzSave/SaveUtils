@@ -11,7 +11,8 @@
 # saveutil.raidfarmbypass - Allows users to bypass raid farm cooldown
 # saveutils.autotrash - Allows users to use the autotrash features,
 
-Settings:
+# Enable or disable various features of the plugin.
+Modules:
   # Enables the purpur config options found below.
   # WARNING: You must be running purpur, or you will have errors or crashes.
   enable-purpur-settings: false
@@ -19,25 +20,14 @@ Settings:
   # Enable or disable the ability to define custom commands.
   custom-commands-enabled: true
 
-  #Sends a configurable message when a user tries to enter a bed.
-  warning-message-for-beds: false
-
-  #Enables the automatic announcements.
-  enable-announcer: false
-
-  #Time between messages in seconds.
-  announcer-interval: 600
-
-  #Enables or disables raid farms.
-  anti-raid-farm: false
-
-  # How many seconds must a player wait between starting raids
-  # Give the permission `saveutil.raidfarmbypass` to players you wish to bypass this
-  raid-cooldown-seconds: 180
-
-Modules:
   # Enables a message that displays the percentage of users online that are sleeping.
   enable-sleep-listener: true
+
+  # Enables the automatic announcements.
+  enable-announcer: false
+
+  # Enables the ability for SaveUtils to handle chat formatting.
+  enable-chat-formatting: true
 
   # Disable phantom spawning.
   disable-phantom-spawning: true
@@ -45,10 +35,27 @@ Modules:
   # Disable wither spawning
   disable-wither-spawning: true
 
+  #Enables or disables raid farms.
+  disable-raid-farms: false
+
 #This requires the server to be running Purpur in order to work. https://purpurmc.org/
 Purpur-Settings:
   #Gives a user an enchantment book of the enchantment(s) removed from the item.
   give-books-when-grindstone-disenchant: false
+
+#Various settings for different modules
+Settings:
+
+  #Sends a configurable message when a user tries to enter a bed.
+  warning-message-for-beds: false
+
+  #Time between messages in seconds.
+  announcer-interval: 600
+
+  # How many seconds must a player wait between starting raids
+  # Give the permission `saveutil.raidfarmbypass` to players you wish to bypass this
+  raid-cooldown-seconds: 180
+
 
 # Chat formatting Placeholders:
 # The content of the message is added at the end.

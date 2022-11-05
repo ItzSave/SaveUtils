@@ -20,7 +20,6 @@ public class AutoTrashCommand extends CommandBase {
 
     public AutoTrashCommand(SaveUtils plugin) {
         this.plugin = plugin;
-
     }
 
     @Default
@@ -29,7 +28,7 @@ public class AutoTrashCommand extends CommandBase {
         Player p = (Player) sender;
         if (sender == null) return;
 
-        for (String line : this.plugin.getLangFile().getStringList("Messages.HELP_AGE")) {
+        for (String line : this.plugin.getLangFile().getStringList("Messages.HELP_PAGE")) {
             p.sendMessage(SaveUtils.color(line));
         }
     }

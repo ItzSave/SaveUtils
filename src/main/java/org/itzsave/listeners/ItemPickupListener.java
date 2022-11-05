@@ -27,9 +27,7 @@ public class ItemPickupListener implements Listener {
 
             Material item = e.getItem().getItemStack().getType();
 
-            if (plugin.getAutoTrashHandler().getTrashItems(p) == null) {
-                return;
-            }
+            if (plugin.getAutoTrashHandler().getTrashItems(p) == null) return;
             if (plugin.getAutoTrashHandler().getTrashItemsMat(p).contains(item)) {
                 e.getItem().remove();
                 e.setCancelled(true);

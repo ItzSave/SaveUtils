@@ -10,11 +10,7 @@ import org.itzsave.SaveUtils;
 
 public class CustomCommandHandler implements Listener {
 
-    private final SaveUtils plugin;
-
-    public CustomCommandHandler(SaveUtils plugin) {
-        this.plugin = plugin;
-    }
+    SaveUtils plugin = SaveUtils.getPlugin(SaveUtils.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onCustomCommand(PlayerCommandPreprocessEvent event) {

@@ -37,7 +37,7 @@ public class TextUtils {
         StringBuilder builder = new StringBuilder();
 
         for (int i = 0; i < list.size(); i++) {
-            if (ChatColor.stripColor(list.get(i).toString()).equals("")) builder.append("\n&r");
+            if (ChatColor.stripColor(list.get(i).toString()).equals("")) builder.append("\n");
             else builder.append(list.get(i).toString()).append(i + 1 != list.size() ? "\n" : "");
         }
 
