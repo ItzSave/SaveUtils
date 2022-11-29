@@ -16,7 +16,8 @@ public enum Messages {
     ILLEGAL_BOOK("illegal-book"),
     NIGHTVISION_ENABLED("nightvision-enabled"),
     NIGHTVISION_DISABLED("nightvision-disabled"),
-    BED_WARNING("bed-warning-message");
+    BED_WARNING("bed-warning-message"),
+    VOID_DAMAGE("void-damage");
 
 
     final SaveUtils plugin = SaveUtils.getPlugin(SaveUtils.class);

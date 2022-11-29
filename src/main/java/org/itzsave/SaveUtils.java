@@ -175,5 +175,10 @@ public final class SaveUtils extends JavaPlugin implements Listener {
             getLogger().info("[Module] Loading auto announcer module.");
         }
 
+        if (getConfig().getBoolean("Modules.enable-anti-void-death", true)) {
+            Bukkit.getPluginManager().registerEvents(new VoidDamageListener(), this);
+            getLogger().info("[Module] Loading anti void death module.");
+        }
+
     }
 }

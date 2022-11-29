@@ -20,6 +20,8 @@ Messages:
   #Message sent when a user tries to create an illegal book.
   illegal-book: '<red>You are not allowed to use illegal characters in a book!'
 
+  void-damage: '<green>You have been teleported to spawn please try not to jump in the void!'
+
   send-sleep-percentage-message:
     player-sleeping: '<grey><playername> has fallen asleep. <sleeping> out of <needed> required players in <worldname> are sleeping.'
     skipping-night: '<grey>Enough players have slept! Skipping through the night in <worldname>.'

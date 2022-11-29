@@ -29,6 +29,9 @@ Modules:
   # Enables the ability for SaveUtils to handle chat formatting.
   enable-chat-formatting: true
 
+  # Prevents users from dying due to the void. NOTE: Teleports to the user to the spawn location of the world they are currently in.
+  enable-anti-void-death: true
+
   # Disable phantom spawning.
   disable-phantom-spawning: true
 
