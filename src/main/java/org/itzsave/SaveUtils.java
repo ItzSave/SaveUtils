@@ -123,6 +123,8 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         reloadConfig();
         langFile.reload();
 
+        loadModules();
+
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PlaceholderHandler().register();
         }
