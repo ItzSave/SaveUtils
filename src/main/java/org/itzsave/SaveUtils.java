@@ -68,7 +68,6 @@ public final class SaveUtils extends JavaPlugin implements Listener {
                 new IllegalBookCreationListener(),
                 new ItemPickupListener(this),
                 new AntiRaidFarm(this),
-                new BedInteractEvent(),
                 new PlayerListener()
         ).forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, this));
 
@@ -83,6 +82,11 @@ public final class SaveUtils extends JavaPlugin implements Listener {
             getLogger().severe("WARNING: LuckPerms has not found! Please install it to enable chat formatting.");
             getConfig().set("Modules.enable-chat-formatting", false);
             saveConfig();
+        }
+
+        if (this.getConfig().getBoolean("Modules.custom-commands-enabled", true)) {
+            Bukkit.getPluginManager().registerEvents(new CustomCommandHandler(), this);
+            getLogger().info("[Module] Loading custom commands module.");
         }
 
         // Checking if PlaceholderAPI is installed.
@@ -167,10 +171,7 @@ public final class SaveUtils extends JavaPlugin implements Listener {
             getLogger().info("[Module] Enabling grindstone disenchantment module.");
         }
 
-        if (this.getConfig().getBoolean("Modules.custom-commands-enabled", true)) {
-            Bukkit.getPluginManager().registerEvents(new CustomCommandHandler(), this);
-            getLogger().info("[Module] Loading custom commands module.");
-        }
+
 
         if (this.getConfig().getBoolean("Modules.enable-announcer", true)) {
             loadAnnouncer();

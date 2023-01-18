@@ -9,7 +9,7 @@
 # saveutil.nightvision - Gives access to /nightvision
 # saveutil.admin - Gives access to admin functions such as /reload.
 # saveutil.raidfarmbypass - Allows users to bypass raid farm cooldown
-# saveutils.autotrash - Allows users to use the autotrash features,
+# saveutils.autotrash - Allows users to use the autotrash features.
 
 # Enable or disable various features of the plugin.
 Modules:
@@ -48,9 +48,6 @@ Purpur-Settings:
 
 #Various settings for different modules
 Settings:
-
-  #Sends a configurable message when a user tries to enter a bed.
-  warning-message-for-beds: false
 
   #Time between messages in seconds.
   announcer-interval: 600

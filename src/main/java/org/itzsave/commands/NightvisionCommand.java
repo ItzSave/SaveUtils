@@ -20,13 +20,17 @@ public class NightvisionCommand extends CommandBase {
     @Permission("saveutils.nightvision")
     public void onCommand(@NotNull CommandSender sender) {
         Player player = (Player) sender;
-        if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
-            Messages.NIGHTVISION_DISABLED.send(sender);
-            player.removePotionEffect(PotionEffectType.NIGHT_VISION);
-        } else {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 1, true, false));
-            Messages.NIGHTVISION_ENABLED.send(sender);
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("Console can not use this command!");
+            return;
         }
+            if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
+                Messages.NIGHTVISION_DISABLED.send(sender);
+                player.removePotionEffect(PotionEffectType.NIGHT_VISION);
+            } else {
+                player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 1, true, false));
+                Messages.NIGHTVISION_ENABLED.send(sender);
+            }
     }
 }
 
