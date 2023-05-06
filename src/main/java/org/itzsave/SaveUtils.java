@@ -18,6 +18,7 @@ import org.itzsave.tasks.Announcement;
 import org.itzsave.tasks.AntiRaidFarm;
 import org.itzsave.utils.ConfigManager;
 import org.itzsave.utils.Messages;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -80,23 +81,17 @@ public final class SaveUtils extends JavaPlugin implements Listener {
                 getLogger().info("[SaveUtils] [Module] Loading chat formatting module.");
             }
         } else {
-            getLogger().severe("WARNING: LuckPerms has not found! Please install it to enable chat formatting.");
+            getLogger().severe("WARNING: LuckPerms is not installed. Disabling chat formatting.");
             getConfig().set("Modules.enable-chat-formatting", false);
             saveConfig();
-        }
-
-        if (this.getConfig().getBoolean("Modules.custom-commands-enabled", true)) {
-            Bukkit.getPluginManager().registerEvents(new CustomCommandHandler(), this);
-            getLogger().info("[SaveUtils] [Module] Loading custom commands module.");
         }
 
         // Checking if PlaceholderAPI is installed.
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PlaceholderHandler().register();
-            getLogger().info("[SaveUtils] [Module] Loading internal PlaceholderAPI placeholders.");
-            getLogger().info("[SaveUtils] [Module] Loading PlaceholderAPI message support.");
+            getLogger().info("[SaveUtils] [Module] Loading all PlaceholderAPI functions.");
         } else {
-            getLogger().severe("WARNING: PlaceholderAPI was not found support has not been enabled.");
+            getLogger().severe("WARNING: PlaceholderAPI is not installed.");
         }
         getLogger().warning("--------- [SaveUtils] ---------");
     }
@@ -110,7 +105,7 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         return langFile.getConfig();
     }
 
-    public static Component color(String message) {
+    public static @NotNull Component color(String message) {
         return MiniMessage.miniMessage().deserialize(message);
     }
 
@@ -181,6 +176,11 @@ public final class SaveUtils extends JavaPlugin implements Listener {
         if (getConfig().getBoolean("Modules.enable-anti-void-death", true)) {
             Bukkit.getPluginManager().registerEvents(new VoidDamageListener(), this);
             getLogger().info("[SaveUtils] [Module] Loading anti void death module.");
+        }
+
+        if (this.getConfig().getBoolean("Modules.custom-commands-enabled", true)) {
+            Bukkit.getPluginManager().registerEvents(new CustomCommandHandler(), this);
+            getLogger().info("[SaveUtils] [Module] Loading custom commands module.");
         }
 
     }

@@ -13,6 +13,7 @@ import org.bukkit.inventory.GrindstoneInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
+import org.jetbrains.annotations.NotNull;
 import org.purpurmc.purpur.event.inventory.GrindstoneTakeResultEvent;
 
 import java.util.Map;
@@ -22,7 +23,7 @@ public class GrindstoneEnchantListener implements Listener {
     public static final ItemStack BOOK = new ItemStack(Material.BOOK);
 
     @EventHandler
-    public void on(GrindstoneTakeResultEvent event) {
+    public void on(@NotNull GrindstoneTakeResultEvent event) {
         GrindstoneInventory grindstoneInventory = event.getInventory();
 
         ItemStack lowerItem = grindstoneInventory.getLowerItem();

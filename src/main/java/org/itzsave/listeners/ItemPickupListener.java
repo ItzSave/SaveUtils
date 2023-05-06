@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.itzsave.SaveUtils;
+import org.jetbrains.annotations.NotNull;
 
 
 public class ItemPickupListener implements Listener {
@@ -36,7 +37,7 @@ public class ItemPickupListener implements Listener {
     }
 
     @EventHandler
-    public void onInventory(InventoryPickupItemEvent e) {
+    public void onInventory(@NotNull InventoryPickupItemEvent e) {
         for (HumanEntity he : e.getInventory().getViewers()) {
             if (he instanceof Player p && plugin.getAutoTrashHandler().getTrashItemsMat(p).contains(e.getItem().getItemStack().getType())) {
                 e.getItem().remove();
