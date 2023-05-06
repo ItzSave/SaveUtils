@@ -77,8 +77,7 @@ public final class SaveUtils extends JavaPlugin implements Listener {
             if (this.getConfig().getBoolean("Modules.enable-chat-formatting")) {
                 Bukkit.getPluginManager().registerEvents(new ChatListener(), this);
                 this.luckPerms = getServer().getServicesManager().load(LuckPerms.class);
-                //getLogger().info("§a[Module]§7 Loading chat formatting module.");
-                Bukkit.getConsoleSender().sendMessage("§6[SaveUtils] §a[Module]§7 Loading chat formatting module.");
+                getLogger().info("[SaveUtils] [Module] Loading chat formatting module.");
             }
         } else {
             getLogger().severe("WARNING: LuckPerms has not found! Please install it to enable chat formatting.");
@@ -88,14 +87,14 @@ public final class SaveUtils extends JavaPlugin implements Listener {
 
         if (this.getConfig().getBoolean("Modules.custom-commands-enabled", true)) {
             Bukkit.getPluginManager().registerEvents(new CustomCommandHandler(), this);
-            Bukkit.getConsoleSender().sendMessage("§6[SaveUtils] §a[Module]§7 Loading custom commands module.");
+            getLogger().info("[SaveUtils] [Module] Loading custom commands module.");
         }
 
         // Checking if PlaceholderAPI is installed.
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PlaceholderHandler().register();
-            Bukkit.getConsoleSender().sendMessage("§6[SaveUtils] §a[Module]§7 Loading internal PlaceholderAPI placeholders.");
-            Bukkit.getConsoleSender().sendMessage("§6[SaveUtils] §a[Module]§7 Loading PlaceholderAPI message support.");
+            getLogger().info("[SaveUtils] [Module] Loading internal PlaceholderAPI placeholders.");
+            getLogger().info("[SaveUtils] [Module] Loading PlaceholderAPI message support.");
         } else {
             getLogger().severe("WARNING: PlaceholderAPI was not found support has not been enabled.");
         }
@@ -164,24 +163,24 @@ public final class SaveUtils extends JavaPlugin implements Listener {
 
     private void loadModules() {
         if (this.getConfig().getBoolean("Modules.enable-sleep-listener", false)) {
-            Bukkit.getConsoleSender().sendMessage(Component.text("§6[SaveUtils] §a[Module]§7 Loading sleep listener module."));
             Bukkit.getPluginManager().registerEvents(new SleepPercentageListener(this), this);
+            getLogger().info("[SaveUtils] [Module] Loading sleep listener module.");
         }
 
         if (this.getConfig().getBoolean("Purpur-Settings.give-books-when-grindstone-disenchant", false)) {
             Bukkit.getPluginManager().registerEvents(new GrindstoneEnchantListener(), this);
-            Bukkit.getConsoleSender().sendMessage(Component.text("§6[SaveUtils] §a[Module]§7 Enabling grindstone disenchantment module. §d[Purpur]"));
+            getLogger().info("[SaveUtils] [Module] Enabling grindstone disenchantment module.");
         }
 
 
         if (this.getConfig().getBoolean("Modules.enable-announcer", true)) {
             loadAnnouncer();
-            Bukkit.getConsoleSender().sendMessage(Component.text("§6[SaveUtils] §a[Module]§7 Loading auto announcer module."));
+            getLogger().info("[SaveUtils] [Module] Loading auto announcer module.");
         }
 
         if (getConfig().getBoolean("Modules.enable-anti-void-death", true)) {
             Bukkit.getPluginManager().registerEvents(new VoidDamageListener(), this);
-            Bukkit.getConsoleSender().sendMessage(Component.text("§6[SaveUtils] §a[Module]§7 Loading anti void death module."));
+            getLogger().info("[SaveUtils] [Module] Loading anti void death module.");
         }
 
     }
