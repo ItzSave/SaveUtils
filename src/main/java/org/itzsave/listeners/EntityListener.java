@@ -17,17 +17,14 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void entitySpawn(EntitySpawnEvent e) {
-        if (plugin.getConfig().getBoolean("Modules.disable-wither-spawning", true)) {
-            if (e.getEntityType().equals(EntityType.WITHER)) {
-                e.setCancelled(true);
-            }
+        if (plugin.getConfig().getBoolean("Modules.disable-wither-spawning", true) && e.getEntityType().equals(EntityType.WITHER)) {
+            e.setCancelled(true);
         }
 
-        if (plugin.getConfig().getBoolean("Modules.disable-phantom-spawning", true)) {
-            if (e.getEntityType().equals(EntityType.PHANTOM)) {
-                e.setCancelled(true);
-            }
-        }
 
+        if (plugin.getConfig().getBoolean("Modules.disable-phantom-spawning", true) && e.getEntityType().equals(EntityType.PHANTOM)) {
+            e.setCancelled(true);
+        }
     }
+
 }

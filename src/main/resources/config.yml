@@ -6,9 +6,9 @@
 # %saveutils_exp% - Returns formatted experience.
 #
 # Permissions
-# saveutil.nightvision - Gives access to /nightvision
-# saveutil.admin - Gives access to admin functions such as /reload.
-# saveutil.raidfarmbypass - Allows users to bypass raid farm cooldown
+# saveutils.nightvision - Gives access to /nightvision
+# saveutils.admin - Gives access to admin functions such as /reload.
+# saveutils.raidfarmbypass - Allows users to bypass raid farm cooldown
 # saveutils.autotrash - Allows users to use the autotrash features.
 
 # Enable or disable various features of the plugin.
@@ -51,6 +51,9 @@ Settings:
 
   #Time between messages in seconds.
   announcer-interval: 600
+
+  disable-join-messages: false
+  disable-quit-messages: false
 
   # How many seconds must a player wait between starting raids
   # Give the permission `saveutil.raidfarmbypass` to players you wish to bypass this

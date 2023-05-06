@@ -1,11 +1,13 @@
 name: SaveUtils
 version: '${version}'
+authors: [Save]
 main: org.itzsave.SaveUtils
 api-version: 1.19
-softdepend: [ PlaceholderAPI, LuckPerms ]
-authors: [ ItzSave ]
-description: Simple utility plugin to add various features/adjustments.
-
+dependencies:
+  - name: LuckPerms
+    required: false
+  - name: PlaceholderAPI
+    required: false
 permissions:
   saveutils.admin:
     description: Gives access to admin commands.
@@ -19,9 +21,3 @@ permissions:
     description: Allows users to disable raid farm cooldown.
   saveutils.nightvision:
     description: Allows the user to use the nightvision command.
-
-commands:
-  nightvision:
-    description: Gives the user a permanent nightvision effect.
-    aliases:
-      - nv

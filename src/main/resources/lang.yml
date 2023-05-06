@@ -61,7 +61,7 @@ Messages:
   ITEM_ADD_SUCCESS: "<gold><bold>(!)</bold> <yellow>Successfully added <white>%item% <yellow>to your list."
   ITEM_REM_SUCCESS: "<gold><bold>(!)</bold> <yellow>Successfully removed <white>%item% <yellow>from your list."
   NOT_ENOUGH_ARGS: "<red><bold>(!)</bold> <red>Not enough arguments inputted."
-  NOT_VALID_ITEM: "<red><bold>(!)</bold> <red>The item you input was invalid."
+  null-item: "<red><bold>(!)</bold> <red>The item you input was invalid."
   NO_PERMISSION: "<red><bold>(!)</bold> <red>You do not have the required permission."
   RELOAD_MESSAGE: "<red><bold>(!)</bold> <red>Config file has been reloaded."
   NOT_VALID_ARG: "<red><bold>(!)</bold> <red>Your sub-command was not found."

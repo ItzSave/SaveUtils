@@ -1,5 +1,6 @@
 # SaveUtils
 A remake of the "SaveCore" series designed to be a utility plugin that has various features.
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/fe41e6bc4af74b6aa07d0dd036fd64af)](https://app.codacy.com/gh/ItzSave/SaveUtils/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 # Requirements:
 - PlaceholderAPI

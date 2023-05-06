@@ -22,6 +22,8 @@ public class Announcement implements Listener {
     private Map<Integer, Announcement> announcementIntegerMap;
     private int announcement = 0;
 
+    private BukkitTask task;
+
 
     public Announcement() {
         announcementIntegerMap = Maps.newHashMap();
@@ -31,8 +33,6 @@ public class Announcement implements Listener {
             index++;
         }
     }
-
-    private BukkitTask task;
 
 
     public void register() {

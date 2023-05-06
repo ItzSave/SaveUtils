@@ -3,12 +3,17 @@ package org.itzsave.handlers;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import org.itzsave.SaveUtils;
 import org.itzsave.utils.TextUtils;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
 public class PlaceholderHandler extends PlaceholderExpansion {
+
+    @Override
+    public boolean persist() {
+        return true;
+    }
+
     @Override
     public @NotNull String getIdentifier() {
         return "SaveUtils";
@@ -16,7 +21,7 @@ public class PlaceholderHandler extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getAuthor() {
-        return SaveUtils.getPlugin(SaveUtils.class).getDescription().getVersion();
+        return "1.0";
     }
 
     @Override

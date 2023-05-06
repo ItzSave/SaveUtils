@@ -34,7 +34,7 @@ public class AntiRaidFarm implements Listener {
     public void onRaidTrigger(RaidTriggerEvent event) {
         if (plugin.getConfig().getBoolean("Modules.disable-raid-farms", false)) {
             final Player player = event.getPlayer();
-            if (player.hasPermission("saveutil.raidfarmbypass") || player.hasPermission("saveutils.admin")) {
+            if (player.hasPermission("saveutils.raidfarmbypass") || player.hasPermission("saveutils.admin")) {
                 return;
             }
             final boolean hasCooldown = lastRaidCahce.getIfPresent(player.getUniqueId()) != null;

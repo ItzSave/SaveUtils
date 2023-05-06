@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.itzsave.SaveUtils;
+import org.itzsave.utils.Messages;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @SuppressWarnings({"FieldCanBeLocal", "unused"})
 @Command("autotrash")
+@Alias("at")
 public class AutoTrashCommand extends CommandBase {
 
     private final SaveUtils plugin;
@@ -34,13 +36,21 @@ public class AutoTrashCommand extends CommandBase {
     }
 
     @SubCommand("add")
-    public void addItem(CommandSender sender, String[] args) {
+    public void addItem(Player sender, String[] args) {
+
+        if (args[0].equals(null)) {
+            Messages.AUTO_TRASH_NULL_ITEM.send(sender);
+            return;
+        }
+
         Material item = Material.getMaterial(args[1].toUpperCase());
-        Player player = (Player) sender;
+
+
+        // STILL KNOWN TO THROW ERRORS
         if (item == null) {
-            sender.sendMessage(SaveUtils.color(plugin.getLangFile().getString("Messages.NOT_VALID_ITEM")));
+            Messages.AUTO_TRASH_NULL_ITEM.send(sender);
         } else {
-            plugin.getAutoTrashHandler().addAutoTrashItem(player, item);
+            plugin.getAutoTrashHandler().addAutoTrashItem(sender, item);
             sender.sendMessage(SaveUtils.color(plugin.getLangFile().getString("Messages.ITEM_ADD_SUCCESS").replace("%item%", item.name())));
         }
     }
@@ -64,11 +74,11 @@ public class AutoTrashCommand extends CommandBase {
     }
 
     @SubCommand("list")
-    public void listItems(CommandSender sender, String[] args) {
-        if (plugin.getAutoTrashHandler().getTrashItems((Player) sender) == null) {
+    public void listItems(Player sender, String[] args) {
+        if (plugin.getAutoTrashHandler().getTrashItems(sender) == null) {
             sender.sendMessage(SaveUtils.color(this.plugin.getLangFile().getString("Messages.TRASH_LIST_EMPTY")));
         } else {
-            List<String> items = new ArrayList<>(plugin.getAutoTrashHandler().getTrashItems((Player) sender));
+            List<String> items = new ArrayList<>(plugin.getAutoTrashHandler().getTrashItems(sender));
             String pl = String.join(", ", items);
             sender.sendMessage(SaveUtils.color(plugin.getLangFile().getString("Messages.TRASH_LIST_FORMAT").replace("%trashlist%", pl)));
         }

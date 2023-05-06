@@ -16,7 +16,7 @@ public class CustomCommandHandler implements Listener {
         try {
             plugin.getConfig().getConfigurationSection("Custom-Commands.").getKeys(false).forEach(
                     command -> {
-                        if (command.toLowerCase().equalsIgnoreCase(event.getMessage().split(" ")[0].replace("/", ""))) {
+                        if (command.equalsIgnoreCase(event.getMessage().split(" ")[0].replace("/", ""))) {
                             event.setCancelled(true);
                             plugin.getConfig().getStringList("Custom-Commands." + command + ".message").forEach(line -> event.getPlayer().sendMessage(SaveUtils.color(PlaceholderAPI.setPlaceholders(event.getPlayer(), (line)))));
 
