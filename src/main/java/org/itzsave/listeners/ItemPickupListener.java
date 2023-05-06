@@ -19,6 +19,7 @@ public class ItemPickupListener implements Listener {
         this.plugin = plugin;
     }
 
+
     @EventHandler
     public void itemPickup(EntityPickupItemEvent e) {
         Entity entity = e.getEntity();
@@ -27,8 +28,7 @@ public class ItemPickupListener implements Listener {
 
             Material item = e.getItem().getItemStack().getType();
 
-            if (plugin.getAutoTrashHandler().getTrashItems(p) == null) return;
-            if (plugin.getAutoTrashHandler().getTrashItemsMat(p).contains(item)) {
+            if (plugin.getAutoTrashHandler().getTrashItems(p) != null && plugin.getAutoTrashHandler().getTrashItems(p).contains(item)){
                 e.getItem().remove();
                 e.setCancelled(true);
             }
@@ -38,10 +38,10 @@ public class ItemPickupListener implements Listener {
     @EventHandler
     public void onInventory(InventoryPickupItemEvent e) {
         for (HumanEntity he : e.getInventory().getViewers()) {
-            if (he instanceof Player p) {
-                if (plugin.getAutoTrashHandler().getTrashItemsMat(p).contains(e.getItem().getItemStack().getType()))
-                    e.getItem().remove();
+            if (he instanceof Player p && plugin.getAutoTrashHandler().getTrashItemsMat(p).contains(e.getItem().getItemStack().getType())) {
+                e.getItem().remove();
             }
         }
     }
 }
+

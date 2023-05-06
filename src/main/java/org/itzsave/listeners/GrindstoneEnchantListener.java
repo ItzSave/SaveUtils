@@ -42,7 +42,7 @@ public class GrindstoneEnchantListener implements Listener {
             }
             enchants = ((EnchantmentStorageMeta) upperItem.getItemMeta()).getStoredEnchants();
         } else {
-            if (!(upperItem.getEnchantments().size() > 0)) {
+            if (upperItem.getEnchantments().size() >= 0) {
                 return; // no enchants to extract
             }
             enchants = upperItem.getEnchantments();
