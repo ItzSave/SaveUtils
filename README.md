@@ -5,7 +5,6 @@ A remake of the "SaveCore" series designed to be a utility plugin that has vario
 # Requirements:
 - PlaceholderAPI
 - LuckPerms
-- Purpur (Optional)
 
 # Commands:
 - /nightvision - Enables a nightvision potion effect.
@@ -16,7 +15,6 @@ A remake of the "SaveCore" series designed to be a utility plugin that has vario
 # Features:
 - Illegal character blocking in books.
 - Ability to disable wither spawning.
-- Ability for grindstones to give enchantment books.
 - Ability to broadcast sleeping players.
 - Custom join/leave messages.
 - Ability to disable raid farms.
